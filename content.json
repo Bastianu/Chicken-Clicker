@@ -1,0 +1,16 @@
+{
+    "autoClickers": [
+        {
+            "id": 1,
+            "nom": "poulette",
+            "production": 1,
+            "prix": 20
+        },
+        {
+            "id": 2,
+            "nom": "fermier",
+            "production": 2,
+            "prix" : 80
+        }
+    ]
+}
