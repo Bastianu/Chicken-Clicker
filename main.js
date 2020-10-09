@@ -1,5 +1,6 @@
 var egg_Elem = document.getElementById("eggs");
 var autoC_Elem = document.getElementById("autoC");
+var timer;
 
 var myAutoClickers = [0,0]; // [0 => 10, 1 => 1, 2 => 0, ...]; // mydata["myAutoClickers"]
 var eggs = 0; // mydata["eggs"]
@@ -40,37 +41,47 @@ function initClicker(){
 function initAutoClickers(){
     var result = "<div> <ul>";
     for(var i =0; i<autoClickers["autoClickers"].length;i++){
-        result += "<li>"+ autoClickers["autoClickers"][i]["nom"] +" " + autoClickers["autoClickers"][i]["prix"]+ " <img src='assets/egg.png' height=40 width=40> : "+myAutoClickers[i]+"</li>";
+        result += "<li>"+ autoClickers["autoClickers"][i]["nom"]+" <br>produit " + autoClickers["autoClickers"][i]["prix"]+ " <img src='assets/egg.png' height=40 width=40> <button onclick='test("+i+")'> acheter 1 "+autoClickers["autoClickers"][i]["nom"]+"</button></li><br>";
     }
     result += "</div>";
     autoC_Elem.innerHTML = result;
 }
 
 function initGameTimer(){
-    var timer = setTimeout(game_timer, 1000);
+    timer = setInterval(game_timer, 3000);
 }
 
 function game_timer(){
     var eggsThisSecond = 0;
     for(var i=0; i<myAutoClickers.length ; i++){
+        console.log(myAutoClickers[i]+" * "+autoClickers["autoClickers"][i]["production"]);
         eggsThisSecond += myAutoClickers[i] * autoClickers["autoClickers"][i]["production"];
     }
     eggs += eggsThisSecond;
+    console.log("1 seconde, oeufs produits = "+eggsThisSecond);
+    updateEggs();
 }
 
 function clicked(){
     clics +=1;
     eggs +=1;
     console.log(clics);
-    egg_Elem.innerHTML = eggs;
+    updateEggs();
 }
 
+function updateEggs(){
+    egg_Elem.innerHTML = eggs;
+}
 
 
 function updateAutoClickers(){
 }
 
-function test(){
-    myAutoClickers[0] ++; 
-    console.log(myAutoClickers[0]); 
+function test(i){
+    myAutoClickers[i] ++; 
+    console.log(myAutoClickers); 
+}
+
+function stop(){
+    clearInterval(timer);   
 }
