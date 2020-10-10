@@ -11,7 +11,7 @@ var secondPassed  = 0; //pareil
 var myAutoClickers = [0,0,0]; // pareil // autant de  0 que de autoclickers dans content.json
 var autoClickers = []; // récupère les données de content.json 
 
-// **** lecture content.json  
+// **** lecture content.json
 function readTextFile(file, callback) {
     var rawFile = new XMLHttpRequest();
     rawFile.overrideMimeType("application/json");
