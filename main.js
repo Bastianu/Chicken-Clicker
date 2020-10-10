@@ -1,16 +1,17 @@
 var egg_Elem = document.getElementById("eggs");
 var eggps_Elem = document.getElementById("eggsPerSecond");
 var autoC_Elem = document.getElementById("autoC");
+var myAutoC_Elem = document.getElementById("myAutoC");
 var timer;
 var eggsThisSecond;
 
-var myAutoClickers = [0,0,0]; // [0 => 10, 1 => 1, 2 => 0, ...]; // mydata["myAutoClickers"]
 var eggs = 0; // devra être enregistré en cache ou cookie
 var clics = 0; // pareil
 var secondPassed  = 0; //pareil
-var autoClickers = []; // = content.json 
+var myAutoClickers = [0,0,0]; // pareil // autant de  0 que de autoclickers dans content.json
+var autoClickers = []; // récupère les données de content.json 
 
-
+// **** lecture content.json 
 function readTextFile(file, callback) {
     var rawFile = new XMLHttpRequest();
     rawFile.overrideMimeType("application/json");
@@ -23,11 +24,12 @@ function readTextFile(file, callback) {
     rawFile.send(null);
 }
 
-//usage:
 readTextFile("content.json", function(text){
     autoClickers = JSON.parse(text);
     console.log(autoClickers);
 });
+// ****
+
 
 function initGame(){
     initClicker();
@@ -44,7 +46,7 @@ function initClicker(){
 function initAutoClickers(){
     var result = "<div> <ul>";
     for(var i =0; i<autoClickers["autoClickers"].length;i++){
-        result += "<li>"+ autoClickers["autoClickers"][i]["nom"] +" ( "+autoClickers["autoClickers"][i]["production"]+ "/s ) <button onclick='test("+i+","+autoClickers["autoClickers"][i]["prix"]+")'> x1 => "+autoClickers["autoClickers"][i]["prix"]+ " <img src='assets/egg.png' height=30 width=30></button></li><br>";
+        result += "<li>"+ autoClickers["autoClickers"][i]["nom"] +" ( "+autoClickers["autoClickers"][i]["production"]+ "/s ) <button onclick='buyOne("+i+","+autoClickers["autoClickers"][i]["prix"]+")'> x1 => "+autoClickers["autoClickers"][i]["prix"]+ " <img src='assets/egg.png' height=30 width=30></button></li><br>";
     }
     result += "</div>";
     autoC_Elem.innerHTML = result;
@@ -70,7 +72,7 @@ function game_timer(){
 function clicked(){
     clics +=1;
     eggs +=1;
-    console.log(clics);
+    //console.log(clics);
     updateEggs();
 }
 
@@ -83,15 +85,30 @@ function updateEggsPerSec(){
 }
 
 function updateAutoClickers(){
+    text = "";
+    for(var i=0; i<myAutoClickers.length ; i++){
+        if(myAutoClickers[i]!=0){
+            text += autoClickers["autoClickers"][i]["nom"] + " x " + myAutoClickers[i] + " ( "+ (autoClickers["autoClickers"][i]["production"]* myAutoClickers[i])+"/s ) <br>";
+        }
+        
+    }
+    myAutoC_Elem.innerHTML = text;
 }
 
-function test(i, prix){
-    myAutoClickers[i] ++; 
-    eggs -= prix;
-    updateEggs();
-    console.log(myAutoClickers); 
+function buyOne(i, prix){
+    if(eggs - prix >= 0){
+        myAutoClickers[i] ++; 
+        eggs -= prix;
+        updateEggs();
+        updateAutoClickers();
+        console.log(myAutoClickers); 
+    }
+    else {
+        console.log("pas assez d'argent")
+    }   
 }
 
 function stop(){
     clearInterval(timer);   
 }
+
