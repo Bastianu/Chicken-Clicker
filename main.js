@@ -9,7 +9,7 @@ var eggs = 0; // devra être enregistré en cache ou cookie
 var clics = 0; // pareil
 var secondPassed  = 0; //pareil
 var myAutoClickers = [0,0,0]; // pareil // autant de  0 que de autoclickers dans content.json
-var autoClickers = []; // récupère les données de content.json 
+var data = []; // récupère les données de content.json 
 
 // **** lecture content.json
 function readTextFile(file, callback) {
@@ -25,8 +25,8 @@ function readTextFile(file, callback) {
 }
 
 readTextFile("content.json", function(text){
-    autoClickers = JSON.parse(text);
-    console.log(autoClickers);
+    data = JSON.parse(text);
+    console.log(data);
 });
 // ****
 
@@ -45,8 +45,8 @@ function initClicker(){
 
 function initAutoClickers(){
     var result = "<div> <ul>";
-    for(var i =0; i<autoClickers["autoClickers"].length;i++){
-        result += "<li>"+ autoClickers["autoClickers"][i]["nom"] +" ( "+autoClickers["autoClickers"][i]["production"]+ "/s ) <button onclick='buyOne("+i+","+autoClickers["autoClickers"][i]["prix"]+")'> x1 => "+autoClickers["autoClickers"][i]["prix"]+ " <img src='assets/egg.png' height=30 width=30></button></li><br>";
+    for(var i =0; i<data["autoClickers"].length;i++){
+        result += "<li>"+ data["autoClickers"][i]["nom"] +" ( "+data["autoClickers"][i]["production"]+ "/s ) <button onclick='buyOne("+i+","+data["autoClickers"][i]["prix"]+")'> x1 => "+data["autoClickers"][i]["prix"]+ " <img src='assets/egg.png' height=30 width=30></button></li><br>";
     }
     result += "</div>";
     autoC_Elem.innerHTML = result;
@@ -59,8 +59,8 @@ function initGameTimer(){
 function game_timer(){
     eggsThisSecond = 0;
     for(var i=0; i<myAutoClickers.length ; i++){
-        console.log(myAutoClickers[i]+" * "+autoClickers["autoClickers"][i]["production"]);
-        eggsThisSecond += myAutoClickers[i] * autoClickers["autoClickers"][i]["production"];
+        console.log(myAutoClickers[i]+" * "+data["autoClickers"][i]["production"]);
+        eggsThisSecond += myAutoClickers[i] * data["autoClickers"][i]["production"];
     }
     eggs += eggsThisSecond;
     updateEggsPerSec();
@@ -88,7 +88,7 @@ function updateAutoClickers(){
     text = "";
     for(var i=0; i<myAutoClickers.length ; i++){
         if(myAutoClickers[i]!=0){
-            text += autoClickers["autoClickers"][i]["nom"] + " x " + myAutoClickers[i] + " ( "+ (autoClickers["autoClickers"][i]["production"]* myAutoClickers[i])+"/s ) <br>";
+            text += data["autoClickers"][i]["nom"] + " x " + myAutoClickers[i] + " ( "+ (data["autoClickers"][i]["production"]* myAutoClickers[i])+"/s ) <br>";
         }
         
     }
