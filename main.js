@@ -104,7 +104,7 @@ function buyOne(i, prix){
         console.log(myAutoClickers); 
     }
     else {
-        console.log("pas assez d'argent")
+        console.log("pas assez d'oeufs")
     }   
 }
 
