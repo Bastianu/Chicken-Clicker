@@ -5,11 +5,18 @@ var myAutoC_Elem = document.getElementById("myAutoC");
 var timer;
 var eggsThisSecond;
 
-var eggs = 0; // devra être enregistré en cache ou cookie
+var eggs = 0; // devra être enregistré en cache 
 var clics = 0; // pareil
 var secondPassed  = 0; //pareil
 var myAutoClickers = [0,0,0]; // pareil // autant de  0 que de autoclickers dans content.json
 var data = []; // récupère les données de content.json 
+
+
+if(navigator.serviceWorker) {
+    navigator.serviceWorker
+        .register('sw.js')
+}
+
 
 // **** lecture content.json
 function readTextFile(file, callback) {
@@ -32,10 +39,16 @@ readTextFile("content.json", function(text){
 
 
 function initGame(){
+    getPlayerData();
     initClicker();
     initAutoClickers();
     initGameTimer();
 }
+
+function getPlayerData(){
+    //if cache != null myAutoClickers/eggs/clics/secondPassed/etc.. = cache
+}
+
 
 function initClicker(){
     var clicker = document.getElementById("clicker");
@@ -53,7 +66,7 @@ function initAutoClickers(){
 }
 
 function initGameTimer(){
-    timer = setInterval(game_timer, 3000);
+    timer = setInterval(game_timer, 1000);
 }
 
 function game_timer(){
