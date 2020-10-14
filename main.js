@@ -1,16 +1,22 @@
+//** divs jeu */
 var egg_Elem = document.getElementById("eggs");
 var eggps_Elem = document.getElementById("eggsPerSecond");
 var autoC_Elem = document.getElementById("autoC");
 var myAutoC_Elem = document.getElementById("myAutoC");
-var timer;
-var eggsThisSecond;
 
-var eggs = 0; // devra être enregistré en cache 
-var clics = 0; // pareil
-var secondPassed  = 0; //pareil
-var myAutoClickers = [0,0,0]; // pareil // autant de  0 que de autoclickers dans content.json
+//** vars utilisateur */
+var eggs = 0; // --> cache 
+var clics = 0; // --> pareil
+var secondPassed  = 0; // --> pareil
+var myAutoClickers = [0,0,0,0,0]; // pareil //  ## A MODIFIER
+var myBonuses = []
+
+//** const jeu */
 var data = []; // récupère les données de content.json 
 
+//** vars jeu */
+var timer;
+var eggsThisSecond;
 
 if(navigator.serviceWorker) {
     navigator.serviceWorker

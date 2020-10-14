@@ -2,7 +2,7 @@
     "autoClickers": [
         {
             "id": 1,
-            "nom": "poulette",
+            "nom": "poule",
             "production": 1,
             "prix": 20,
             "img": ""
@@ -37,31 +37,60 @@
         },
         {
             "id": 6,
-            "nom": "poule",
+            "nom": "grosse poule",
             "production": 100000,
             "prix" : 99999,
             "img": ""
         }
     ],
+    
     "rewards": {
         "eggs": [
             {
-                "id":1,
-                "nb":1,
-                "nom":"Beginner",
-                "desc":"Votre premier oeuf !"
-                
+                "requirements": [1,100,1000,10000],
+                "title": ["Un oeuf !", "", "", ""],
+                "desc": ["Votre premier oeuf !", "", "", ""]               
             }
         ],
         "clics": [
-
+            {
+                "requirements": [1,100,1000,10000],
+                "title": ["Clic", "", "", ""],
+                "desc": ["Votre premier clic !", "", "", ""]       
+            }
         ],
         "temps": [
+            {
+                "requirements": [60,3600, 18000, 99999],
+                "title": ["tic tac", "", "", ""],
+                "desc": ["Déjà une minute !", "", "", ""]       
+            }
 
         ]
     },
+    
     "boosts": [
         {
+            "clics": [
+                {
+                    "id": 1,
+                    "nom": "",
+                    "desc": "",
+                    "multiplicateur": 2
+                }
+            ],
+            "autoClickers": [
+                {
+                    "id": 1,
+                    "nom": "",
+                    "desc": "",
+                    "ac_id": 1,
+                    "multiplicateur": 1.5
+                }
+            ], 
+            "others": [
+
+            ]
         }
     ]
 }
