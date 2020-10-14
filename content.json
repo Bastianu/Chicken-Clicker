@@ -4,19 +4,64 @@
             "id": 1,
             "nom": "poulette",
             "production": 1,
-            "prix": 20
+            "prix": 20,
+            "img": ""
         },
         {
             "id": 2,
             "nom": "fermier",
             "production": 2,
-            "prix" : 80
+            "prix" : 80,
+            "img": ""
         },
         {
             "id": 3,
             "nom": "pompe à oeufs",
             "production": 5,
-            "prix" : 500
+            "prix" : 500,
+            "img": ""
+        },
+        {
+            "id": 4,
+            "nom": "poulailler",
+            "production": 10,
+            "prix" : 1000,
+            "img": ""
+        },
+        {
+            "id": 5,
+            "nom": "arbre à oeufs",
+            "production": 15,
+            "prix" : 1500,
+            "img": ""
+        },
+        {
+            "id": 6,
+            "nom": "poule",
+            "production": 100000,
+            "prix" : 99999,
+            "img": ""
+        }
+    ],
+    "rewards": {
+        "eggs": [
+            {
+                "id":1,
+                "nb":1,
+                "nom":"Beginner",
+                "desc":"Votre premier oeuf !"
+                
+            }
+        ],
+        "clics": [
+
+        ],
+        "temps": [
+
+        ]
+    },
+    "boosts": [
+        {
         }
     ]
 }
