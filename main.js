@@ -6,9 +6,10 @@ var myAutoC_Elem = document.getElementById("myAutoC");
 
 //** vars utilisateur */
 var eggs = 0; // --> cache 
+var eggsExponent = 1;
 var clics = 0; // --> pareil
 var secondPassed  = 0; // --> pareil
-var myAutoClickers = [0,0,0,0,0]; // pareil //  ## A MODIFIER
+var myAutoClickers = [0,0,0,0,0,0]; // pareil //  ## A MODIFIER
 var myBonuses = []
 
 //** const jeu */
@@ -17,6 +18,7 @@ var data = []; // récupère les données de content.json
 //** vars jeu */
 var timer;
 var eggsThisSecond;
+var eggsThisSecondExponent = 1;
 
 if(navigator.serviceWorker) {
     navigator.serviceWorker

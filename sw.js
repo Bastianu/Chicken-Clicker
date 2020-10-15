@@ -1,4 +1,4 @@
-const cacheName = 'chicken-clicker' + '0.1';
+const cacheName = 'chicken-clicker' + '0.2';
 
 self.addEventListener('install', (evt) => {
     console.log(`sw installé à ${new Date().toLocaleTimeString()}`);
@@ -8,9 +8,7 @@ self.addEventListener('install', (evt) => {
             'index.html',
             'main.js',
             'style.css',
-            'http://localhost:3001/autoClickers',
-            'http://localhost:3001/rewards', 
-            'http://localhost:3001/boosts'
+            'content.json'
         ])
         .then(console.log('cache initialisé'))
         .catch(console.err);
@@ -23,7 +21,6 @@ self.addEventListener('install', (evt) => {
 self.addEventListener('activate', (evt) => {
     console.log(`sw activé à ${new Date().toLocaleTimeString()}`);   
     
-    // 5.4 Supprimer les anciennes instances de cache
     let cacheCleanPromise = caches.keys().then(keys => {
         keys.forEach(key => {          
             if(key !== cacheName){ 
@@ -38,7 +35,7 @@ self.addEventListener('activate', (evt) => {
 this.addEventListener('fetch', (evt) => {
 });
 
-
+/*
 self.registration.showNotification("Notification du SW", {
     body:"je suis une notification dite persistante",
    
@@ -65,3 +62,4 @@ self.addEventListener("notificationclick", evt => {
   
     evt.notification.close();
 })
+*/
