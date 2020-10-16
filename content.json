@@ -1,5 +1,5 @@
 {
-    "autoClickers": [
+    "buildings": [
         {
             "id": 1,
             "nom": "poule",
@@ -45,28 +45,21 @@
     ],
     
     "rewards": {
-        "eggs": [
-            {
+        "eggs": {
                 "requirements": [1,100,1000,10000],
                 "title": ["Un oeuf !", "", "", ""],
                 "desc": ["Votre premier oeuf !", "", "", ""]               
-            }
-        ],
-        "clics": [
-            {
-                "requirements": [1,100,1000,10000],
-                "title": ["Clic", "", "", ""],
-                "desc": ["Votre premier clic !", "", "", ""]       
-            }
-        ],
-        "temps": [
-            {
+            },
+        "clics": {
+                "requirements": [1,10,50,10000],
+                "title": ["Clic", "clic2", "clic3", "clic4"],
+                "desc": ["Votre premier clic !", "10", "50", "10000"]       
+            },
+        "temps": {
                 "requirements": [60,3600, 18000, 99999],
-                "title": ["tic tac", "", "", ""],
-                "desc": ["Déjà une minute !", "", "", ""]       
+                "title": ["tic tac", "temps2", "temps3", "temps4"],
+                "desc": ["Déjà une minute !", "3600", "18000", "99999"]       
             }
-
-        ]
     },
     
     "boosts": [
@@ -79,7 +72,7 @@
                     "multiplicateur": 2
                 }
             ],
-            "autoClickers": [
+            "buildings": [
                 {
                     "id": 1,
                     "nom": "",
