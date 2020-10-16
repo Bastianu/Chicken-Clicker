@@ -1,60 +1,56 @@
-//** divs jeu */
+//** divs web */
 var egg_Elem = document.getElementById("eggs");
 var eggps_Elem = document.getElementById("eggsPerSecond");
 var autoC_Elem = document.getElementById("autoC");
 var myAutoC_Elem = document.getElementById("myAutoC");
 
 //** vars utilisateur */
-var eggs = 0; // --> cache 
-var eggsExponent = 1;
-var clics = 0; // --> pareil
-var secondPassed  = 0; // --> pareil
-var myAutoClickers = [0,0,0,0,0,0]; // pareil //  ## A MODIFIER
-var myBonuses = []
+var eggs = 0; 
+var clics = 0; 
+var secondPassed  = 0; 
+var myAutoClickers = []; 
+var myBoosts = [];
+var myRewards = [];
 
-//** const jeu */
-var data = []; // récupère les données de content.json 
+//** content.json */
+var data = []; 
 
 //** vars jeu */
 var timer;
 var eggsThisSecond;
-var eggsThisSecondExponent = 1;
+
 
 if(navigator.serviceWorker) {
     navigator.serviceWorker
         .register('sw.js')
 }
 
-
-// **** lecture content.json
-function readTextFile(file, callback) {
-    var rawFile = new XMLHttpRequest();
-    rawFile.overrideMimeType("application/json");
-    rawFile.open("GET", file, true);
-    rawFile.onreadystatechange = function() {
-        if (rawFile.readyState === 4 && rawFile.status == "200") {
-            callback(rawFile.responseText);
-        }
-    }
-    rawFile.send(null);
-}
-
-readTextFile("content.json", function(text){
-    data = JSON.parse(text);
-    console.log(data);
-});
-// ****
-
-
 function initGame(){
+    
     getPlayerData();
+    loadContent();
     initClicker();
-    initAutoClickers();
     initGameTimer();
 }
 
 function getPlayerData(){
-    //if cache != null myAutoClickers/eggs/clics/secondPassed/etc.. = cache
+    //get vars utilisateur from cache ou from bdd
+}
+
+function loadContent() {
+    fetch('content.json') //http://127.0.0.1:3001/autoClickers
+        .then(response => {
+            response.json()
+                .then(result => { 
+                    data = Array(result)[0];
+                    if(myAutoClickers.length==0){ 
+                        for(var i =0; i<data["autoClickers"].length;i++) myAutoClickers.push(0); 
+                    }
+
+                    initAutoClickers();
+                });
+        })
+        .catch(console.error);
 }
 
 
@@ -80,21 +76,22 @@ function initGameTimer(){
 function game_timer(){
     eggsThisSecond = 0;
     for(var i=0; i<myAutoClickers.length ; i++){
-        console.log(myAutoClickers[i]+" * "+data["autoClickers"][i]["production"]);
+        //console.log(myAutoClickers[i]+" * "+data["autoClickers"][i]["production"]);
         eggsThisSecond += myAutoClickers[i] * data["autoClickers"][i]["production"];
     }
     eggs += eggsThisSecond;
     updateEggsPerSec();
     updateEggs();
-    console.log("1 seconde, oeufs produits = "+eggsThisSecond);
     secondPassed += 1;
+    console.log("1 seconde ("+secondPassed+"), oeufs produits = "+eggsThisSecond);  
 }
+
 
 function clicked(){
     clics +=1;
     eggs +=1;
-    //console.log(clics);
     updateEggs();
+   // if(clics == 1) { showNotification("Un Oeuf !", "ton premier oeuf", "assets/icon/apple-icon-72x72-dunplab-manifest-19614.png")}
 }
 
 function updateEggs(){
@@ -132,4 +129,47 @@ function buyOne(i, prix){
 function stop(){
     clearInterval(timer);   
 }
+
+function showNotification(title, desc, img){
+    if(window.Notification && window.Notification !== "denied"){ 
+        Notification.requestPermission(perm => {
+            if(perm === "granted"){
+ 
+                const options = {
+                    body : desc,
+                    icon : img
+                    //https://developer.mozilla.org/fr/docs/Web/API/notification
+                }
+     
+                var notif = new Notification(title, options);
+              
+            }
+            else{ 
+                console.log("Notification refusée");
+            }
+        })
+    }
+}
+
+
+
+// **** lecture content.json
+/*function readTextFile(file, callback) {
+    var rawFile = new XMLHttpRequest();
+    rawFile.overrideMimeType("application/json");
+    rawFile.open("GET", file, true);
+    rawFile.onreadystatechange = function() {
+        if (rawFile.readyState === 4 && rawFile.status == "200") {
+            callback(rawFile.responseText);
+        }
+    }
+    rawFile.send(null);
+}
+
+readTextFile("content.json", function(text){
+    data = JSON.parse(text);
+    console.log(data);
+});*/
+// ****
+
 
