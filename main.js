@@ -64,7 +64,7 @@ function initClicker(){
 function initBuildings(){ // *** A REFAIRE ***
     var result = "<div> <ul>";
     for(var i =0; i<data["buildings"].length;i++){
-        result += "<li>"+ data["buildings"][i]["nom"] +" ( "+data["buildings"][i]["production"]+ "/s ) <button onclick='buyOne("+i+","+data["buildings"][i]["prix"]+")'> x1 => "+data["buildings"][i]["prix"]+ " <img src='assets/egg.png' height=30 width=30></button></li><br>";
+        result += "<li>"+ data["buildings"][i]["nom"] +" ( "+data["buildings"][i]["production"]+ "/s ) <button id='"+data['buildings'][i]['id']+ "' onclick='buyOne("+i+","+data["buildings"][i]["prix"]*Math.pow(1.05,myBuildings[i])+")'> x1 => "+data["buildings"][i]["prix"]+ " <img src='assets/egg.png' height=30 width=30></button></li><br>";
     }
     result += "</div>";
     buildings_Elem.innerHTML = result;
@@ -92,7 +92,6 @@ function clicked(){
     addClic();
     eggs +=1;
     updateEggs();
-   // if(clics == 1) { showNotification("Un Oeuf !", "ton premier oeuf", "assets/icon/apple-icon-72x72-dunplab-manifest-19614.png")}
 }
 
 function updateEggs(){
@@ -128,6 +127,7 @@ function buyOne(i, prix){
         eggs -= prix;
         updateEggs();
         updateBuildings();
+        increaseBuildingCost(i);
         console.log(myBuildings); 
     }
     else {
@@ -142,6 +142,7 @@ function buyMax(i){
         eggs -= prix;
         updateEggs();
         updateBuildings();
+        increaseBuildingCost(i);
         count++;
     }
     console.log(count+ " achetés");
@@ -172,6 +173,10 @@ function showNotification(title, desc, img){
     }
 }
 
+function addEggs(nb_eggs){
+    eggs += nb_eggs;
+}
+
 function addClic(){
     clics += 1;
     var i = 0;
@@ -196,6 +201,14 @@ function addSecond(){
         }
         i++;
     });
+}
+
+function increaseBuildingCost(i){
+    var initialcost = data["buildings"][i]["prix"];
+    var nbOfThisBuilding = myBuildings[i];
+    var newCost = Math.round(initialcost*Math.pow(1.05, nbOfThisBuilding-1));
+    document.getElementById((i+1)).innerHTML =  "x1 => "+newCost+ " <img src='assets/egg.png' height=30 width=30>";
+    document.getElementById((i+1)).setAttribute('onclick','buyOne('+i+','+newCost+')');
 }
 
 // **** lecture content.json

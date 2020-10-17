@@ -8,7 +8,10 @@ self.addEventListener('install', (evt) => {
             'index.html',
             'main.js',
             'style.css',
-            'content.json'
+            'content.json',
+            'assets/egg.png',
+            'assets/poule.png',
+            'assets/icon/apple-icon-144x144-dunplab-manifest-19614.png'
         ])
         .then(console.log('cache initialisé'))
         .catch(console.err);
@@ -33,6 +36,23 @@ self.addEventListener('activate', (evt) => {
 });
 
 this.addEventListener('fetch', (evt) => {
+    // 5.3 Stratégie de network first with cache fallback
+        // On doit envoyer une réponse
+        evt.respondWith(
+            // on doit d'abord faire une requête sur le réseau de ce qui a été intercepté
+            fetch(evt.request).then(res => {
+                console.log("url récupérée depuis le réseau", evt.request.url);
+                // mettre dans le cache le résultat de cette réponse : en clef la requête et en valeur la réponse
+                caches.open(cacheName).then(cache => cache.put(evt.request, res));
+                // quand on a la réponse on la retourne (clone car on ne peut la lire qu'une fois)
+                return res.clone();
+            })
+            // Si on a une erreur et que l'on arrive pas à récupérer depuis le réseau, on va chercher dans le cache
+            .catch(err => {
+                console.log("url récupérée depuis le cache", evt.request.url);
+                return caches.match(evt.request);
+            })
+        );
 });
 
 /*
