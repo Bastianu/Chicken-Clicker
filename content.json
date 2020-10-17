@@ -2,42 +2,42 @@
     "buildings": [
         {
             "id": 1,
-            "nom": "poule",
+            "nom": "Fermier",
             "production": 1,
             "prix": 20,
             "img": ""
         },
         {
             "id": 2,
-            "nom": "fermier",
+            "nom": "Elevage en plein air",
             "production": 2,
             "prix" : 80,
             "img": ""
         },
         {
             "id": 3,
-            "nom": "pompe à oeufs",
+            "nom": "Poulailler",
             "production": 5,
             "prix" : 500,
             "img": ""
         },
         {
             "id": 4,
-            "nom": "poulailler",
+            "nom": "Poules nourries au maïs bio",
             "production": 10,
             "prix" : 1000,
             "img": ""
         },
         {
             "id": 5,
-            "nom": "arbre à oeufs",
+            "nom": "Arbre à oeufs bios",
             "production": 15,
             "prix" : 1500,
             "img": ""
         },
         {
             "id": 6,
-            "nom": "grosse poule",
+            "nom": "Déesse Poule",
             "production": 100000,
             "prix" : 99999,
             "img": ""

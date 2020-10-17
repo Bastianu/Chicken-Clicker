@@ -1,65 +1,29 @@
-body {
-  font-family: Arial;
-  color: black;
+body{
+  background-color: white;
+}
+html, body {
+  margin: 0; height: 100%; overflow: hidden
 }
 
-.column {
-  height: 100%;
-  width: 50%;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  overflow-x: hidden;
-  padding-top: 20px;
+.jumbotron{
+  background-color: #eeb045;
 }
 
-.left {
-  left: 0;
-  padding-left: 10%;
-  /*background-color: #111;*/
+#clicker:hover{
+  transform: scale(1.1);
 }
-
-.right {
-  right: 0;
-  /*background-color: red;*/
-}
-
-.centered {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-.centered img {
-  width: 150px;
-  border-radius: 50%;
-}
-
-
-
-
-
 
 #clicker:active{
-  transform: translateY(4px);
+  transform: scale(1.01);
 }
 
-
-
-
-
-
-
-
-.tooltip {
+.myTooltip {
   position: relative;
   display: inline-block;
   border-bottom: 1px dotted black;
 }
 
-.tooltip .tooltiptext {
+.myTooltip .tooltiptext {
   visibility: hidden;
   width: 120px;
   background-color: #555;
@@ -76,7 +40,7 @@ body {
   transition: opacity 0.3s;
 }
 
-.tooltip .tooltiptext::after {
+.myTooltip .tooltiptext::after {
   content: "";
   position: absolute;
   top: 100%;
@@ -87,7 +51,7 @@ body {
   border-color: #555 transparent transparent transparent;
 }
 
-.tooltip:hover .tooltiptext {
+.myTooltip:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
 }

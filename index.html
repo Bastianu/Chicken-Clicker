@@ -1,45 +1,56 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href="vendors/css/bootstrap.min.css">
     <link href="style.css" rel="stylesheet">
     <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="assets/poule.png">
     <title>Chicken Clicker</title>
     <meta name="viewport">
 </head>
 
 <body onload="initGame();">
+    <div class="row">
+        <div class="col user-select-none text-center">
+            <div class="jumbotron">        
+                <div class="mx-auto" style="width: auto;">
+                    <div id="clicker">
+                        <img type="button" src="assets/poule.png"/>
+                    </div>
+                    <hr>
+                    <div class="alert alert-dark">
+                        <span class="h1 align-bottom" id="eggs">0</span>
+                        <img src='assets/egg.png' style="width: 40px">
+                        <div id="eggsPerSecond">0 oeufs par secondes</div>
+                    </div>
+                </div>
+            </div>
 
-    <div class="left column">
-
-        <div>
-            <p>cliquez sur la poule</p>
+            <div class="rounded" style="height: 100%; background-color: lightgray;">
+                <span class="float-left">
+                    <img src="assets/trophy.png" alt="trophy" style="width: 100px;">
+                </span>
+                <div id="myRewards"></div>
+            </div>
         </div>
-        
-        <div id="clicker">
-            <img src="assets/poule.png"/>
+
+        <div class="col">
+            <div id="myBuildings"></div>
         </div>
 
-       
-        <img src='assets/egg.png' height=40 width=40> : <span id="eggs"> 0 </span> <span id="eggsPerSecond"> ( 0/s )</span>
 
-        <br>
-        <div id="myRewards"></div>
-
-    </div>
-
-
-    <div class="right column">
-
-        <div id="buildings">buildings</div>
-        </ul> 
-
-        <div id="myBuildings"></div>
-
-
-        <div>
-            <button onclick="stop()"> stop timer </button>
+        <div class="col jumbotron">
+            <div class="text-center h2">
+                Boutique
+            </div>
+            <div class="mx-auto" style="width: auto;">
+                <button id="multiplier" onClick="changeMultiplier()" type="button" class="btn btn-block btn-warning btn">x1</button>
+                <div id="buildings">buildings</div>
+                <!--<div>
+                    <button onclick="stop()"> stop timer </button>
+                </div>-->    
+            </div>      
         </div>
-        
     </div>
 
 

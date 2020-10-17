@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/Bastianu/Chicken-Clicker/issues"
   },
-  "homepage": "https://github.com/Bastianu/Chicken-Clicker#readme"
+  "homepage": "https://github.com/Bastianu/Chicken-Clicker#readme",
+  "dependencies": {
+    "bootstrap-icons": "^1.0.0"
+  }
 }
