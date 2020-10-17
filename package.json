@@ -1,7 +1,7 @@
 {
   "name": "projetpwa",
   "version": "1.0.0",
-  "description": "",
+  "description": "Un jeu dérivé de Cookie Clicker en Progressive Web App",
   "main": "main.js",
   "scripts": {
     "jsonserver": "json-server -p 3001 --watch content.json",
@@ -10,5 +10,13 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bastianu/Chicken-Clicker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Bastianu/Chicken-Clicker/issues"
+  },
+  "homepage": "https://github.com/Bastianu/Chicken-Clicker#readme"
 }
