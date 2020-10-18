@@ -62,22 +62,32 @@
             }
     },
     
-    "boosts": [
+    "ameliorations": [
         {
             "clics": [
                 {
                     "id": 1,
-                    "nom": "",
-                    "desc": "",
+                    "nom": "Clic x2",
+                    "desc": "vos clics comptent double",
+                    "prix": 1000,
+                    "requirement": [],
+                    "multiplicateur": 2
+                },
+                {
+                    "id": 2,
+                    "nom": "Clic x2",
+                    "desc": "vos clics comptent encore double",
+                    "prix": 100000,
+                    "requirement": [1],
                     "multiplicateur": 2
                 }
             ],
             "buildings": [
                 {
-                    "id": 1,
+                    "id": 3,
                     "nom": "",
                     "desc": "",
-                    "ac_id": 1,
+                    "building_id": 1,
                     "multiplicateur": 1.5
                 }
             ], 

@@ -11,9 +11,9 @@ var clics = 0;
 var eggsOnclick = 1;
 var secondPassed  = 0; 
 var myBuildings = []; 
-var myBoosts = [];
+var myAmeliorations = [];
 var myRewards = [];
-var prices = [];
+//var prices = [];
 
 //** content.json */
 var data = []; 
@@ -46,7 +46,7 @@ function initBuildings(){ // *** A REFAIRE ***
     var result = "<ul class=\"list-group\">";
     for(var i =0; i<data["buildings"].length;i++){
         result += "<li class=\"list-group-item\"><div>"+ data["buildings"][i]["nom"] +"</div> <div>( "+data["buildings"][i]["production"]+ " <img src='assets/egg.png' width=15> par secondes )</div> <div class=\"btn-group\"><button id=\"buyer_" + data['buildings'][i]['id'] + "\" type=\"button\" class=\"btn btn-outline-info btn-sm\" id='"+data['buildings'][i]['id']+ "' onclick='buyItem("+i+","+data["buildings"][i]["prix"]+", 1)'>"+data["buildings"][i]["prix"]+ " <img src='assets/egg.png' width=15></button></div></li><br>";
-        prices.push(data["buildings"][i]["prix"]);
+        //prices.push(data["buildings"][i]["prix"]);
     }
     result += "</ul>";
     buildings_Elem.innerHTML = result;
@@ -70,8 +70,8 @@ function changeMultiplier(){
 function applyMultiplier(){
         document.getElementById("multiplier").innerText = "x"+currentMultiplier;      
         for(var i =0; i<data["buildings"].length;i++){
-            totalcost =0;
-            for (var j=0;j<currentMultiplier;j++) totalcost += Math.round(prices[i]*Math.pow(1.05, myBuildings[i]+j));
+            var totalcost =0;
+            for (var j=0;j<currentMultiplier;j++) totalcost +=Math.round(data["buildings"][i]["prix"]*Math.pow(1.05, myBuildings[i]+j));
             document.getElementById("buyer_" + (i+1) ).innerHTML =  totalcost  + " <img src='assets/egg.png' width=15>";
             document.getElementById("buyer_" + (i+1)).setAttribute("onclick", "buyItem("+i+","+totalcost+","+currentMultiplier+")");    
         }
@@ -89,7 +89,8 @@ function updateMyBuildings(){
     text = "";
     for(var i=0; i<myBuildings.length ; i++){
         if(myBuildings[i]!=0){
-            text += data["buildings"][i]["nom"] + " x " + myBuildings[i] + " ( "+ (data["buildings"][i]["production"]* myBuildings[i])+"/s ) <br>";
+            var bonus = "<br>aucun bonus <br>x1";
+            text += '<div class="myTooltipRight">'+data["buildings"][i]["nom"] + " x " + myBuildings[i] + " ( "+ (data["buildings"][i]["production"]* myBuildings[i])+"/s )" +'<span class="tooltiptextRight"> bonus actifs :'+bonus+'</span> </div><br>';
         }
         
     }
@@ -223,6 +224,9 @@ function addSecond(){
     });
 }
 
+function reduceInt(){
+    //big js -> transformer un grand nombre genre 900000000000 en 9.10^12 ou 9 decillions ou un truc comme ça
+}
 
 /*
 function increaseBuildingCost(i, nbBought){
