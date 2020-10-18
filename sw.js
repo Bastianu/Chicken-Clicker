@@ -11,7 +11,7 @@ self.addEventListener('install', (evt) => {
             'content.json',
             'assets/egg.png',
             'assets/poule.png',
-            'assets/icon/apple-icon-144x144-dunplab-manifest-19614.png'
+            'assets/icon/'
         ])
         .then(console.log('cache initialisé'))
         .catch(console.err);
