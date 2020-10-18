@@ -6,9 +6,9 @@ var myBuildings_Elem = document.getElementById("myBuildings");
 var myRewards_Elem = document.getElementById("myRewards");
 
 //** vars utilisateur */
-var eggs = 1000; 
+var eggs = 0; 
 var clics = 0; 
-var eggsOnclick = 1;
+var eggsOnClick = 1;
 var secondPassed  = 0; 
 var myBuildings = []; 
 var myAmeliorations = [];
@@ -32,7 +32,7 @@ if(navigator.serviceWorker) {
 
 function initGame(){
     
-    getPlayerData();
+   // getPlayerData();
     loadContent();
     initClicker();
     initGameTimer();
@@ -103,7 +103,20 @@ function updateMyBuildings(){
             //////////////////////////////////
 
 function getPlayerData(){
-    //get vars utilisateur from cache ou from bdd
+    console.log("eggs: "+parseInt(localStorage.getItem("eggs")));
+    console.log("clics: "+parseInt(localStorage.getItem("clics")));
+    console.log("secondes: "+parseInt(localStorage.getItem("secondes")));
+    console.log("myBuildings: "+localStorage.getItem("myBuildings").split(',').map(b=>parseInt(b)));
+}
+
+function savePlayerData(){
+    localStorage.clear();   
+    localStorage.setItem("eggs", eggs.toString());
+    localStorage.setItem("myBuildings", myBuildings.toString());
+    localStorage.setItem("clics", clics);
+    localStorage.setItem("secondes", secondPassed);
+    localStorage.setItem("myRewards", myRewards.toString());
+    localStorage.setItem("myAmeliorations", myAmeliorations.toString());
 }
 
 function loadContent() {
