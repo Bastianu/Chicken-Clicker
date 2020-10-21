@@ -62,29 +62,36 @@
             }
     },
     
-    "ameliorations": [
-        {
+    "ameliorations": {
             "clics": [
                 {
                     "id": 1,
-                    "nom": "Clic x2",
-                    "desc": "vos clics comptent double",
-                    "prix": 1000,
+                    "nom": "clic en bronze",
+                    "desc": "clics x2",
+                    "prix": 15,
                     "requirement": [],
                     "multiplicateur": 2
                 },
                 {
                     "id": 2,
-                    "nom": "Clic x2",
-                    "desc": "vos clics comptent encore double",
-                    "prix": 100000,
+                    "nom": "clic en argent",
+                    "desc": "clics x2",
+                    "prix": 400,
                     "requirement": [1],
+                    "multiplicateur": 2
+                },
+                {
+                    "id": 3,
+                    "nom": "clic en or",
+                    "desc": "clics x2",
+                    "prix": 50000,
+                    "requirement": [1,2],
                     "multiplicateur": 2
                 }
             ],
             "buildings": [
                 {
-                    "id": 3,
+                    "id": 4,
                     "nom": "",
                     "desc": "",
                     "building_id": 1,
@@ -95,5 +102,4 @@
 
             ]
         }
-    ]
 }

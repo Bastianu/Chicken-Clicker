@@ -4,6 +4,7 @@ var eggps_Elem = document.getElementById("eggsPerSecond");
 var buildings_Elem = document.getElementById("buildings");
 var myBuildings_Elem = document.getElementById("myBuildings");
 var myRewards_Elem = document.getElementById("myRewards");
+var ameliorations_Elem = document.getElementById("ameliorations");
 
 //** vars utilisateur */
 var eggs = 0; 
@@ -11,7 +12,7 @@ var clics = 0;
 var eggsOnClick = 1;
 var secondPassed  = 0; 
 var myBuildings = []; 
-var myAmeliorations = [];
+var myUpgrades = [];
 var myRewards = [];
 //var prices = [];
 
@@ -42,14 +43,27 @@ function initGame(){
             // ************FRONT************//
             //////////////////////////////////
 
-function initBuildings(){ // *** A REFAIRE ***
+function initBuildings(){
     var result = "<ul class=\"list-group\">";
     for(var i =0; i<data["buildings"].length;i++){
         result += "<li class=\"list-group-item\"><div>"+ data["buildings"][i]["nom"] +"</div> <div>( "+data["buildings"][i]["production"]+ " <img src='assets/egg.png' width=15> par secondes )</div> <div class=\"btn-group\"><button id=\"buyer_" + data['buildings'][i]['id'] + "\" type=\"button\" class=\"btn btn-outline-info btn-sm\" id='"+data['buildings'][i]['id']+ "' onclick='buyItem("+i+","+data["buildings"][i]["prix"]+", 1)'>"+data["buildings"][i]["prix"]+ " <img src='assets/egg.png' width=15></button></div></li><br>";
-        //prices.push(data["buildings"][i]["prix"]);
     }
     result += "</ul>";
     buildings_Elem.innerHTML = result;
+}
+
+function showUpgrades(){
+    var result = "<ul class=\"list-group\">";
+    for(var i =0; i<data["ameliorations"]["clics"].length;i++){
+        if(!myUpgrades.includes(data["ameliorations"]["clics"][i]["id"])) {
+        result += "<li class=\"list-group-item\"><div>"+ data["ameliorations"]["clics"][i]["nom"]+" : "+data["ameliorations"]["clics"][i]["desc"]+"</div> <div><button class=\"btn btn-outline-info btn-sm\" id='"+data["ameliorations"]["clics"][i]['id']+"' onclick='buyUpgrade("+data["ameliorations"]["clics"][i]["id"]+","+data["ameliorations"]["clics"][i]["prix"]+',"clic",'+data["ameliorations"]["clics"][i]["multiplicateur"]+")'>"+data["ameliorations"]["clics"][i]["prix"]+ " <img src='assets/egg.png' width=15></button></div></li><br>";
+        }
+    }
+   /*
+    même boucle pour buildings
+   */
+    result += "</ul>";
+    ameliorations_Elem.innerHTML = result;
 }
 
 function updateRewards(){
@@ -77,14 +91,6 @@ function applyMultiplier(){
         }
 }
 
-function updateEggs(){
-    egg_Elem.innerHTML = Math.round(eggs);
-}
-
-function updateEggsPerSec(){
-    eggps_Elem.innerHTML = eggsThisSecond+" oeufs par secondes";
-}
-
 function updateMyBuildings(){
     text = "";
     for(var i=0; i<myBuildings.length ; i++){
@@ -97,6 +103,13 @@ function updateMyBuildings(){
     myBuildings_Elem.innerHTML = text;
 }
 
+function updateEggs(){
+    egg_Elem.innerHTML = Math.round(eggs);
+}
+
+function updateEggsPerSec(){
+    eggps_Elem.innerHTML = eggsThisSecond+" oeufs par secondes";
+}
 
             //////////////////////////////////
             // *************BACK************//
@@ -116,7 +129,7 @@ function savePlayerData(){
     localStorage.setItem("clics", clics);
     localStorage.setItem("secondes", secondPassed);
     localStorage.setItem("myRewards", myRewards.toString());
-    localStorage.setItem("myAmeliorations", myAmeliorations.toString());
+    localStorage.setItem("myUpgrades", myUpgrades.toString());
 }
 
 function loadContent() {
@@ -130,6 +143,7 @@ function loadContent() {
                     }
 
                     initBuildings();
+                    showUpgrades();
                 });
         })
         .catch(console.error);
@@ -179,6 +193,24 @@ function buyItem(i, prix, nb){
     else {
         console.log("pas assez d'oeufs")
     }   
+}
+
+function buyUpgrade(i, prix, type, effect){
+    if(eggs - prix >= 0){
+        myUpgrades.push(i);
+        eggs -= prix;
+        updateEggs();
+        if(type=="clic"){
+            eggsOnClick*= effect;
+        }
+        else if(type=="building"){
+
+        }
+        showUpgrades();
+    }
+    else{
+        console.log("pas assez d'oeufs")
+    }
 }
 
 
@@ -241,6 +273,8 @@ function reduceInt(){
     //big js -> transformer un grand nombre genre 900000000000 en 9.10^12 ou 9 decillions ou un truc comme ça
 }
 
+
+// anciennes fonctions
 /*
 function increaseBuildingCost(i, nbBought){
     /*var initialcost = data["buildings"][i]["prix"];
