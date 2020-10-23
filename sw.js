@@ -1,4 +1,4 @@
-const cacheName = 'chicken-clicker' + '0.2';
+const cacheName = 'chicken-clicker' + '0.3';
 
 self.addEventListener('install', (evt) => {
     console.log(`sw installé à ${new Date().toLocaleTimeString()}`);
@@ -7,11 +7,8 @@ self.addEventListener('install', (evt) => {
         return cache.addAll([
             'index.html',
             'main.js',
-            'style.css',
             'content.json',
-            'assets/egg.png',
-            'assets/poule.png',
-            'assets/icon/'
+            'assets'
         ])
         .then(console.log('cache initialisé'))
         .catch(console.err);

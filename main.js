@@ -46,7 +46,11 @@ function initGame(){
 function initBuildings(){
     var result = "<ul class=\"list-group\">";
     for(var i =0; i<data["buildings"].length;i++){
-        result += "<li class=\"list-group-item\"><div>"+ data["buildings"][i]["nom"] +"</div> <div>( "+data["buildings"][i]["production"]+ " <img src='assets/egg.png' width=15> par secondes )</div> <div class=\"btn-group\"><button id=\"buyer_" + data['buildings'][i]['id'] + "\" type=\"button\" class=\"btn btn-outline-info btn-sm\" id='"+data['buildings'][i]['id']+ "' onclick='buyItem("+i+","+data["buildings"][i]["prix"]+", 1)'>"+data["buildings"][i]["prix"]+ " <img src='assets/egg.png' width=15></button></div></li><br>";
+        result += "<li class=\"list-group-item\"><div>"+ data["buildings"][i]["nom"]  +"</div> <div>( "+data["buildings"][i]["production"]
+        + " <img src='assets/egg.png' width=15> par secondes )</div> <div class=\"btn-group\"><button id=\"buyer_"
+        + data['buildings'][i]['id'] + "\" type=\"button\" class=\"btn btn-outline-info btn-sm\" id='"+data['buildings'][i]['id']
+        + "' onclick='buyItem("+i+","+data["buildings"][i]["prix"]+", 1)'>"+data["buildings"][i]["prix"]
+        + " <img src='assets/egg.png' width=15></button></div></li><br>";
     }
     result += "</ul>";
     buildings_Elem.innerHTML = result;
@@ -56,7 +60,12 @@ function showUpgrades(){
     var result = "<ul class=\"list-group\">";
     for(var i =0; i<data["ameliorations"]["clics"].length;i++){
         if(!myUpgrades.includes(data["ameliorations"]["clics"][i]["id"])) {
-        result += "<li class=\"list-group-item\"><div>"+ data["ameliorations"]["clics"][i]["nom"]+" : "+data["ameliorations"]["clics"][i]["desc"]+"</div> <div><button class=\"btn btn-outline-info btn-sm\" id='"+data["ameliorations"]["clics"][i]['id']+"' onclick='buyUpgrade("+data["ameliorations"]["clics"][i]["id"]+","+data["ameliorations"]["clics"][i]["prix"]+',"clic",'+data["ameliorations"]["clics"][i]["multiplicateur"]+")'>"+data["ameliorations"]["clics"][i]["prix"]+ " <img src='assets/egg.png' width=15></button></div></li><br>";
+            result += "<li class=\"list-group-item\"><div>"
+            + data["ameliorations"]["clics"][i]["nom"]+" : "+data["ameliorations"]["clics"][i]["desc"]
+            +"</div> <div><button class=\"btn btn-outline-info btn-sm\" id='"+data["ameliorations"]["clics"][i]['id']
+            +"' onclick='buyUpgrade("+data["ameliorations"]["clics"][i]["id"]+","+data["ameliorations"]["clics"][i]["prix"]
+            +',"clic",'+data["ameliorations"]["clics"][i]["multiplicateur"]+")'>"+data["ameliorations"]["clics"][i]["prix"]
+            + " <img src='assets/egg.png' width=15></button></div></li><br>";
         }
     }
    /*
@@ -120,16 +129,25 @@ function getPlayerData(){
     console.log("clics: "+parseInt(localStorage.getItem("clics")));
     console.log("secondes: "+parseInt(localStorage.getItem("secondes")));
     console.log("myBuildings: "+localStorage.getItem("myBuildings").split(',').map(b=>parseInt(b)));
+
+
+    console.log(localStorage.getItem("myUpgrades").split(',').map(b=>parseInt(b)));
+
+    showUpgrades();
 }
 
 function savePlayerData(){
-    localStorage.clear();   
+    deletePlayerData();
     localStorage.setItem("eggs", eggs.toString());
     localStorage.setItem("myBuildings", myBuildings.toString());
     localStorage.setItem("clics", clics);
     localStorage.setItem("secondes", secondPassed);
     localStorage.setItem("myRewards", myRewards.toString());
     localStorage.setItem("myUpgrades", myUpgrades.toString());
+}
+
+function deletePlayerData(){
+    localStorage.clear();   
 }
 
 function loadContent() {

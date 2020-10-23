@@ -51,7 +51,7 @@
                 "desc": ["Votre premier oeuf !", "", "", ""]               
             },
         "clics": {
-                "requirements": [1,10,50,10000],
+                "requirements": [1,100,500,10000],
                 "title": ["Clic", "clic2", "clic3", "clic4"],
                 "desc": ["Votre premier clic !", "10", "50", "10000"]       
             },
@@ -70,7 +70,8 @@
                     "desc": "clics x2",
                     "prix": 15,
                     "requirement": [],
-                    "multiplicateur": 2
+                    "multiplicateur": 2,
+                    "img": ""
                 },
                 {
                     "id": 2,
@@ -78,7 +79,8 @@
                     "desc": "clics x2",
                     "prix": 400,
                     "requirement": [1],
-                    "multiplicateur": 2
+                    "multiplicateur": 2,
+                    "img": ""
                 },
                 {
                     "id": 3,
@@ -86,7 +88,8 @@
                     "desc": "clics x2",
                     "prix": 50000,
                     "requirement": [1,2],
-                    "multiplicateur": 2
+                    "multiplicateur": 2,
+                    "img": ""
                 }
             ],
             "buildings": [
