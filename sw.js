@@ -54,15 +54,15 @@ this.addEventListener('fetch', (evt) => {
 
 /*
 self.registration.showNotification("Notification du SW", {
-    body:"je suis une notification dite persistante",
+    body:"Si le jeu vous plaît, pensez à télécharger l'application",
    
     actions:[
         {action:"accept", title:"accepter"},
         {action: "refuse", title: "refuser"}
     ]
-})
+})*/
 
-
+/*
 self.addEventListener("notificationclose", evt => {
     console.log("Notification fermée", evt);
 })
