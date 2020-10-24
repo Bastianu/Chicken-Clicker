@@ -125,15 +125,21 @@ function updateEggsPerSec(){
             //////////////////////////////////
 
 function getPlayerData(){
-    console.log("eggs: "+parseInt(localStorage.getItem("eggs")));
-    console.log("clics: "+parseInt(localStorage.getItem("clics")));
-    console.log("secondes: "+parseInt(localStorage.getItem("secondes")));
-    console.log("myBuildings: "+localStorage.getItem("myBuildings").split(',').map(b=>parseInt(b)));
+    eggs = parseInt(localStorage.getItem("eggs"));
+    clics = parseInt(localStorage.getItem("clics"));
+    secondPassed = parseInt(localStorage.getItem("secondes"));
+    myBuildings = localStorage.getItem("myBuildings").split(',').map(b=>parseInt(b));
+    myUpgrades = localStorage.getItem("myUpgrades").split(',').map(b=>parseInt(b));
 
-
-    console.log(localStorage.getItem("myUpgrades").split(',').map(b=>parseInt(b)));
-
+    //load les upgrades et les applique
+    if(isNaN(myUpgrades[0])) { myUpgrades = []};
+    myUpgrades.forEach(u => fetchUpgrade(u));
     showUpgrades();
+    
+    //load les batiments 
+    updateMyBuildings();
+
+    //load les rewards
 }
 
 function savePlayerData(){
@@ -222,6 +228,9 @@ function buyUpgrade(i, prix, type, effect){
             eggsOnClick*= effect;
         }
         else if(type=="building"){
+            
+        }
+        else if(type=="other"){
 
         }
         showUpgrades();
@@ -229,6 +238,21 @@ function buyUpgrade(i, prix, type, effect){
     else{
         console.log("pas assez d'oeufs")
     }
+}
+
+function fetchUpgrade(i){
+    console.log("fetching upgrade id"+i);
+    
+    data["ameliorations"]["clics"].forEach(upgrade => {
+        if(upgrade["id"] == i){
+            console.log(upgrade["nom"]+ "  "+upgrade["multiplicateur"]);
+            eggsOnClick*= upgrade["multiplicateur"];
+        }
+    }
+    )
+
+
+    showUpgrades();
 }
 
 
