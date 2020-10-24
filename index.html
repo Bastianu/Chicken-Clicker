@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="vendors/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link href="style.css" rel="stylesheet">
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="assets/poule.png">
@@ -9,9 +9,10 @@
     <meta name="viewport">
 </head>
 
-<body onload="initGame();">
+<body onload="initGame();" class="container-fluid">
     <div class="row">
         <div class="col user-select-none text-center">
+            <span type="button" class="btn float-right" id="shopShow" onclick="showShop()">Boutique</span>
             <div class="jumbotron">        
                 <div class="mx-auto" style="width: auto;">
                     <div id="clicker">
@@ -66,8 +67,7 @@
             </div>   
         </div>
 
-
-        <div class="col jumbotron" style="overflow-y: auto; max-height: 100vh;">
+        <nav class="col jumbotron" id="shop" style="overflow-y: auto; max-height: 100vh;">
             <div class="text-center h2">
                 Boutique
             </div>
@@ -75,12 +75,13 @@
                 <button id="multiplier" onClick="changeMultiplier()" type="button" class="btn btn-block btn-warning btn">x1</button>
                 <div id="buildings">buildings</div>
             </div>   
-        </div>
+        </nav>
     </div>
 
 
 
     <script src="main.js"></script>
+    <script src="secondary.js"></script>
 </body>
 
 </html>
