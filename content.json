@@ -95,8 +95,17 @@
             "buildings": [
                 {
                     "id": 4,
-                    "nom": "",
-                    "desc": "",
+                    "nom": "Fourche",
+                    "desc": "efficacité fermier x1.5",
+                    "prix": 10,
+                    "building_id": 1,
+                    "multiplicateur": 1.5
+                },
+                {
+                    "id": 5,
+                    "nom": "Fourche de ouf",
+                    "desc": "efficacité fermier x1.5",
+                    "prix": 15,
                     "building_id": 1,
                     "multiplicateur": 1.5
                 }
