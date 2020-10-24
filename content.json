@@ -51,7 +51,7 @@
                 "desc": ["Votre premier oeuf !", "", "", ""]               
             },
         "clics": {
-                "requirements": [1,100,500,10000],
+                "requirements": [1,100, 1000, 10000],
                 "title": ["Clic", "clic2", "clic3", "clic4"],
                 "desc": ["Votre premier clic !", "10", "50", "10000"]       
             },

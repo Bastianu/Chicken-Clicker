@@ -78,7 +78,7 @@ function showUpgrades(){
 function updateRewards(){
     text = "";
     for(var i=0; i<myRewards.length ; i++){
-        text += '<div class="myTooltip">'+ myRewards[i][0] +'<span class="tooltiptext">'+myRewards[i][1]+'</span> </div><br>';     
+        text += '<div class="myTooltipRight list-group-item list-group-item-secondary">'+ myRewards[i][0] +'<span class="tooltiptextRight">'+myRewards[i][1]+'</span> </div><br>';     
     }
     myRewards_Elem.innerHTML = text;
 }
