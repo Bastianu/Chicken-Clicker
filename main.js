@@ -12,6 +12,7 @@ var clics = 0;
 var eggsOnClick = 1;
 var secondPassed  = 0; 
 var myBuildings = []; 
+var myBuildingsBoost = [];
 var myUpgrades = [];
 var myRewards = [];
 //var prices = [];
@@ -58,19 +59,21 @@ function initBuildings(){
 
 function showUpgrades(){
     var result = "<ul class=\"list-group\">";
-    for(var i =0; i<data["ameliorations"]["clics"].length;i++){
-        if(!myUpgrades.includes(data["ameliorations"]["clics"][i]["id"])) {
-            result += "<li class=\"list-group-item\"><div>"
-            + data["ameliorations"]["clics"][i]["nom"]+" : "+data["ameliorations"]["clics"][i]["desc"]
-            +"</div> <div><button class=\"btn btn-outline-info btn-sm\" id='"+data["ameliorations"]["clics"][i]['id']
-            +"' onclick='buyUpgrade("+data["ameliorations"]["clics"][i]["id"]+","+data["ameliorations"]["clics"][i]["prix"]
-            +',"clic",'+data["ameliorations"]["clics"][i]["multiplicateur"]+")'>"+data["ameliorations"]["clics"][i]["prix"]
-            + " <img src='assets/egg.png' width=15></button></div></li><br>";
+
+    data["ameliorations"]["clics"].forEach( c => {
+        if(!myUpgrades.includes(c["id"])) {
+            result += "<li class=\"list-group-item\"><div>" + c["nom"]+" : "+ c["desc"]
+            +"</div> <div><button class=\"btn btn-outline-info btn-sm\" id='"+c['id']  +"' onclick='buyUpgrade("+c["id"]+","+c["prix"]
+            +',"clic",'+c["multiplicateur"]+",-1)'>"+c["prix"] + " <img src='assets/egg.png' width=15></button></div></li><br>";
         }
-    }
-   /*
-    même boucle pour buildings
-   */
+    });
+    data["ameliorations"]["buildings"].forEach( b => {
+        if(!myUpgrades.includes(b["id"])) {
+            result += "<li class=\"list-group-item\"><div>" + b["nom"]+" : "+ b["desc"]
+            +"</div> <div><button class=\"btn btn-outline-info btn-sm\" id='"+b['id'] +"' onclick='buyUpgrade("+b["id"]+","+b["prix"]
+            +',"building",'+b["multiplicateur"]+","+(b["building_id"]-1)+")'>"+b["prix"] + " <img src='assets/egg.png' width=15></button></div></li><br>";
+        }
+    });
     result += "</ul>";
     ameliorations_Elem.innerHTML = result;
 }
@@ -104,8 +107,9 @@ function updateMyBuildings(){
     text = "";
     for(var i=0; i<myBuildings.length ; i++){
         if(myBuildings[i]!=0){
-            var bonus = "<br>aucun bonus <br>x1";
-            text += '<div class="myTooltipRight">'+data["buildings"][i]["nom"] + " x " + myBuildings[i] + " ( "+ (data["buildings"][i]["production"]* myBuildings[i])+"/s )" +'<span class="tooltiptextRight"> bonus actifs :'+bonus+'</span> </div><br>';
+            var production = myBuildings[i] * myBuildingsBoost[i] * data["buildings"][i]["production"];
+            var bonus = "total: "+(data["buildings"][i]["production"]*myBuildings[i])+"<br>"+((myBuildingsBoost[i]==1)? "aucun bonus": "x "+myBuildingsBoost[i]) +"<br>= "+production;
+            text += '<div class="myTooltipRight">'+data["buildings"][i]["nom"] + " x " + myBuildings[i] + " ( "+ (production)+"/s )" +'<span class="tooltiptextRight">'+bonus+'</span> </div><br>';
         }
         
     }
@@ -126,21 +130,23 @@ function updateEggsPerSec(){
 
 function getPlayerData(){
     eggs = parseInt(localStorage.getItem("eggs"));
+    updateEggs();
     clics = parseInt(localStorage.getItem("clics"));
     secondPassed = parseInt(localStorage.getItem("secondes"));
     myBuildings = localStorage.getItem("myBuildings").split(',').map(b=>parseInt(b));
     myUpgrades = localStorage.getItem("myUpgrades").split(',').map(b=>parseInt(b));
 
+    myBuildingsBoost.fill(1);
     eggsOnClick = 1;
     //load les upgrades et les applique
     if(isNaN(myUpgrades[0])) { myUpgrades = []};
     myUpgrades.forEach(u => fetchUpgrade(u));
     showUpgrades();
     
-    //load les batiments 
+    //load les batiments sur l'app
     updateMyBuildings();
 
-    //load les rewards
+    //load les rewards et les applique
 }
 
 function savePlayerData(){
@@ -164,7 +170,10 @@ function loadContent() {
                 .then(result => { 
                     data = Array(result)[0];
                     if(myBuildings.length==0){ 
-                        for(var i =0; i<data["buildings"].length;i++) myBuildings.push(0); 
+                        for(var i =0; i<data["buildings"].length;i++) {
+                            myBuildings.push(0); 
+                            myBuildingsBoost.push(1);
+                        }
                     }
 
                     initBuildings();
@@ -195,8 +204,8 @@ function initGameTimer(){
 function game_timer(){
     eggsThisSecond = 0;
     for(var i=0; i<myBuildings.length ; i++){
-        //console.log(myBuildings[i]+" * "+data["buildings"][i]["production"]);
-        eggsThisSecond += myBuildings[i] * data["buildings"][i]["production"];
+        //console.log(myBuildings[i]+ " * "+ myBuildingsBoost[i]+" * "+data["buildings"][i]["production"]);
+        eggsThisSecond += myBuildings[i] * myBuildingsBoost[i] * data["buildings"][i]["production"];
     }
     eggs += eggsThisSecond;
     updateEggsPerSec();
@@ -214,13 +223,14 @@ function buyItem(i, prix, nb){
         updateMyBuildings();
         applyMultiplier(); //increaseBuildingCost(i, nb);
         console.log(myBuildings); 
+        console.log(myBuildingsBoost);
     }
     else {
         console.log("pas assez d'oeufs")
     }   
 }
 
-function buyUpgrade(i, prix, type, effect){
+function buyUpgrade(i, prix, type, effect, b_id){
     if(eggs - prix >= 0){
         myUpgrades.push(i);
         eggs -= prix;
@@ -229,7 +239,8 @@ function buyUpgrade(i, prix, type, effect){
             eggsOnClick*= effect;
         }
         else if(type=="building"){
-            
+            myBuildingsBoost[b_id]*= effect;
+            updateMyBuildings();
         }
         else if(type=="other"){
 
@@ -249,11 +260,14 @@ function fetchUpgrade(i){
             console.log(upgrade["nom"]+ "  "+upgrade["multiplicateur"]);
             eggsOnClick*= upgrade["multiplicateur"];
         }
-    }
-    )
+    });
 
-
-    showUpgrades();
+    data["ameliorations"]["buildings"].forEach(upgrade => {
+        if(upgrade["id"] == i){
+            console.log(upgrade["nom"]+ "  "+upgrade["multiplicateur"]);
+            myBuildingsBoost[upgrade["building_id"]]*= upgrade["multiplicateur"];
+        }
+    });
 }
 
 
