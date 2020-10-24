@@ -131,6 +131,7 @@ function getPlayerData(){
     myBuildings = localStorage.getItem("myBuildings").split(',').map(b=>parseInt(b));
     myUpgrades = localStorage.getItem("myUpgrades").split(',').map(b=>parseInt(b));
 
+    eggsOnClick = 1;
     //load les upgrades et les applique
     if(isNaN(myUpgrades[0])) { myUpgrades = []};
     myUpgrades.forEach(u => fetchUpgrade(u));
