@@ -81,7 +81,7 @@ function showUpgrades(){
 function updateRewards(){
     text = "";
     for(var i=0; i<myRewards.length ; i++){
-        text += '<div class="myTooltipRight list-group-item list-group-item-secondary">'+ myRewards[i][0] +'<span class="tooltiptextRight">'+myRewards[i][1]+'</span> </div><br>';     
+        text += '<div class="myTooltipRight list-group-item list-group-item-secondary">'+ data["rewards"][myRewards[i][0]][myRewards[i][1]]["title"] +'<span class="tooltiptextRight">'+data["rewards"][myRewards[i][0]][myRewards[i][1]]["desc"]+'</span> </div><br>';     
     }
     myRewards_Elem.innerHTML = text;
 }
@@ -129,6 +129,8 @@ function updateEggsPerSec(){
             //////////////////////////////////
 
 function getPlayerData(){
+
+
     eggs = parseInt(localStorage.getItem("eggs"));
     updateEggs();
     clics = parseInt(localStorage.getItem("clics"));
@@ -147,6 +149,11 @@ function getPlayerData(){
     updateMyBuildings();
 
     //load les rewards et les applique
+    var temp = localStorage.getItem("myRewards").split(',');
+    if(temp[0]=="") { temp = []};
+    myRewards = [];
+    for(var i = 0; i<temp.length;i=i+2)  myRewards.push([temp[i], +temp[i+1]]);
+    updateRewards();
 }
 
 function savePlayerData(){
@@ -302,27 +309,23 @@ function addEggs(nb_eggs){
 
 function addClic(){
     clics += 1;
-    var i = 0;
-    data["rewards"]["clics"]["requirements"].forEach(palier => {
-        if(palier == clics){
-            showNotification(data["rewards"]["clics"]["title"][i], data["rewards"]["clics"]["desc"][i]);
-            myRewards.push([data["rewards"]["clics"]["title"][i], data["rewards"]["clics"]["desc"][i]]);
+    data["rewards"]["clic"].forEach(palier => {
+        if(palier["requirement"] == clics){
+            showNotification(palier["title"], palier["desc"], palier["img"]);
+            myRewards.push(["clic", palier["id"]-1]);
             updateRewards();
         }
-        i++;
     });
 }
 
 function addSecond(){
     secondPassed +=1;
-    var i = 0;
-    data["rewards"]["temps"]["requirements"].forEach(palier => {
-        if(palier == secondPassed){
-            showNotification(data["rewards"]["temps"]["title"][i], data["rewards"]["temps"]["desc"][i]);
-            myRewards.push([data["rewards"]["temps"]["title"][i], data["rewards"]["temps"]["desc"][i]]);
+    data["rewards"]["temps"].forEach(palier => {
+        if(palier["requirement"] == secondPassed){
+            showNotification(palier["title"], palier["desc"], palier["img"]);
+            myRewards.push(["temps", palier["id"]-1]);
             updateRewards();
         }
-        i++;
     });
 }
 
@@ -396,3 +399,31 @@ function changeMultiplier2(){
     }
 }
 */
+
+/*
+function addClic2(){
+    clics += 1;
+    var i = 0;
+    data["rewards"]["clics"]["requirements"].forEach(palier => {
+        if(palier == clics){
+            showNotification(data["rewards"]["clics"]["title"][i], data["rewards"]["clics"]["desc"][i]);
+            myRewards.push([data["rewards"]["clics"]["title"][i], data["rewards"]["clics"]["desc"][i]]);
+            updateRewards();
+        }
+        i++;
+    });
+}*/
+
+/*
+function addSecond(){
+    secondPassed +=1;
+    var i = 0;
+    data["rewards"]["temps"]["requirements"].forEach(palier => {
+        if(palier == secondPassed){
+            showNotification(data["rewards"]["temps"]["title"][i], data["rewards"]["temps"]["desc"][i]);
+            myRewards.push([data["rewards"]["temps"]["title"][i], data["rewards"]["temps"]["desc"][i]]);
+            updateRewards();
+        }
+        i++;
+    });
+}*/

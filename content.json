@@ -45,21 +45,58 @@
     ],
     
     "rewards": {
-        "eggs": {
-                "requirements": [1,100,1000,10000],
-                "title": ["Un oeuf !", "", "", ""],
-                "desc": ["Votre premier oeuf !", "", "", ""]               
+        "clic": [
+            {
+                "id":1,
+                "requirement":1,
+                "title": "clic",
+                "desc": "ton premier clic"
             },
-        "clics": {
-                "requirements": [1,100, 1000, 10000],
-                "title": ["Clic", "clic2", "clic3", "clic4"],
-                "desc": ["Votre premier clic !", "10", "50", "10000"]       
+            {
+                "id":2,
+                "requirement":100,
+                "title": "clic2",
+                "desc": "100"
             },
-        "temps": {
-                "requirements": [60,3600, 18000, 99999],
-                "title": ["tic tac", "temps2", "temps3", "temps4"],
-                "desc": ["Déjà une minute !", "3600", "18000", "99999"]       
+            {
+                "id":3,
+                "requirement":1000,
+                "title": "clic3",
+                "desc": "1000"
+            },
+            {
+                "id":4,
+                "requirement":10000,
+                "title": "clic4",
+                "desc": "10000"
             }
+        ],
+        "temps": [
+            {
+                "id":1,
+                "requirement":60,
+                "title": "temps1",
+                "desc": "60"
+            },
+            {
+                "id":2,
+                "requirement":3600,
+                "title": "temps2",
+                "desc": "3600"
+            },
+            {
+                "id":3,
+                "requirement":18000,
+                "title": "temps3",
+                "desc": "18000"
+            },
+            {
+                "id":4,
+                "requirement":99999,
+                "title": "temps4",
+                "desc": "99999"
+            }
+        ]
     },
     
     "ameliorations": {
