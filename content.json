@@ -1,154 +1,151 @@
 {
-    "buildings": [
-        {
-            "id": 1,
-            "nom": "Fermier",
-            "production": 1,
-            "prix": 20,
-            "img": ""
-        },
-        {
-            "id": 2,
-            "nom": "Elevage en plein air",
-            "production": 2,
-            "prix" : 80,
-            "img": ""
-        },
-        {
-            "id": 3,
-            "nom": "Poulailler",
-            "production": 5,
-            "prix" : 500,
-            "img": ""
-        },
-        {
-            "id": 4,
-            "nom": "Poules nourries au maïs bio",
-            "production": 10,
-            "prix" : 1000,
-            "img": ""
-        },
-        {
-            "id": 5,
-            "nom": "Arbre à oeufs bios",
-            "production": 15,
-            "prix" : 1500,
-            "img": ""
-        },
-        {
-            "id": 6,
-            "nom": "Déesse Poule",
-            "production": 100000,
-            "prix" : 99999,
-            "img": ""
-        }
-    ],
-    
-    "rewards": {
-        "clic": [
-            {
-                "id":1,
-                "requirement":1,
-                "title": "clic",
-                "desc": "ton premier clic"
-            },
-            {
-                "id":2,
-                "requirement":100,
-                "title": "clic2",
-                "desc": "100"
-            },
-            {
-                "id":3,
-                "requirement":1000,
-                "title": "clic3",
-                "desc": "1000"
-            },
-            {
-                "id":4,
-                "requirement":10000,
-                "title": "clic4",
-                "desc": "10000"
-            }
-        ],
-        "temps": [
-            {
-                "id":1,
-                "requirement":60,
-                "title": "temps1",
-                "desc": "60"
-            },
-            {
-                "id":2,
-                "requirement":3600,
-                "title": "temps2",
-                "desc": "3600"
-            },
-            {
-                "id":3,
-                "requirement":18000,
-                "title": "temps3",
-                "desc": "18000"
-            },
-            {
-                "id":4,
-                "requirement":99999,
-                "title": "temps4",
-                "desc": "99999"
-            }
-        ]
-    },
-    
-    "ameliorations": {
-            "clics": [
-                {
-                    "id": 1,
-                    "nom": "clic en bronze",
-                    "desc": "clics x2",
-                    "prix": 15,
-                    "requirement": [],
-                    "multiplicateur": 2,
-                    "img": ""
-                },
-                {
-                    "id": 2,
-                    "nom": "clic en argent",
-                    "desc": "clics x2",
-                    "prix": 400,
-                    "requirement": [1],
-                    "multiplicateur": 2,
-                    "img": ""
-                },
-                {
-                    "id": 3,
-                    "nom": "clic en or",
-                    "desc": "clics x2",
-                    "prix": 50000,
-                    "requirement": [1,2],
-                    "multiplicateur": 2,
-                    "img": ""
-                }
-            ],
-            "buildings": [
-                {
-                    "id": 4,
-                    "nom": "Fourche",
-                    "desc": "efficacité fermier x1.5",
-                    "prix": 10,
-                    "building_id": 1,
-                    "multiplicateur": 1.5
-                },
-                {
-                    "id": 5,
-                    "nom": "Fourche de ouf",
-                    "desc": "efficacité fermier x1.5",
-                    "prix": 15,
-                    "building_id": 1,
-                    "multiplicateur": 1.5
-                }
-            ], 
-            "others": [
+	"game": {
+		"buildings": [{
+				"id": 1,
+				"nom": "Fermier",
+				"production": 1,
+				"prix": 20,
+				"img": ""
+			},
+			{
+				"id": 2,
+				"nom": "Elevage en plein air",
+				"production": 2,
+				"prix": 80,
+				"img": ""
+			},
+			{
+				"id": 3,
+				"nom": "Poulailler",
+				"production": 5,
+				"prix": 500,
+				"img": ""
+			},
+			{
+				"id": 4,
+				"nom": "Poules nourries au maïs bio",
+				"production": 10,
+				"prix": 1000,
+				"img": ""
+			},
+			{
+				"id": 5,
+				"nom": "Arbre à oeufs bios",
+				"production": 15,
+				"prix": 1500,
+				"img": ""
+			},
+			{
+				"id": 6,
+				"nom": "Déesse Poule",
+				"production": 100000,
+				"prix": 99999,
+				"img": ""
+			}
+		],
 
-            ]
-        }
+		"rewards": {
+			"clic": [{
+					"id": 1,
+					"requirement": 1,
+					"title": "clic",
+					"desc": "ton premier clic"
+				},
+				{
+					"id": 2,
+					"requirement": 100,
+					"title": "clic2",
+					"desc": "100"
+				},
+				{
+					"id": 3,
+					"requirement": 1000,
+					"title": "clic3",
+					"desc": "1000"
+				},
+				{
+					"id": 4,
+					"requirement": 10000,
+					"title": "clic4",
+					"desc": "10000"
+				}
+			],
+			"temps": [{
+					"id": 1,
+					"requirement": 60,
+					"title": "temps1",
+					"desc": "60"
+				},
+				{
+					"id": 2,
+					"requirement": 3600,
+					"title": "temps2",
+					"desc": "3600"
+				},
+				{
+					"id": 3,
+					"requirement": 18000,
+					"title": "temps3",
+					"desc": "18000"
+				},
+				{
+					"id": 4,
+					"requirement": 99999,
+					"title": "temps4",
+					"desc": "99999"
+				}
+			]
+		},
+
+		"ameliorations": {
+			"clics": [{
+					"id": 1,
+					"nom": "clic en bronze",
+					"desc": "clics x2",
+					"prix": 15,
+					"requirement": [],
+					"multiplicateur": 2,
+					"img": ""
+				},
+				{
+					"id": 2,
+					"nom": "clic en argent",
+					"desc": "clics x2",
+					"prix": 400,
+					"requirement": [1],
+					"multiplicateur": 2,
+					"img": ""
+				},
+				{
+					"id": 3,
+					"nom": "clic en or",
+					"desc": "clics x2",
+					"prix": 50000,
+					"requirement": [1, 2],
+					"multiplicateur": 2,
+					"img": ""
+				}
+			],
+			"buildings": [{
+					"id": 4,
+					"nom": "Fourche",
+					"desc": "efficacité fermier x1.5",
+					"prix": 10,
+					"building_id": 1,
+					"multiplicateur": 1.5
+				},
+				{
+					"id": 5,
+					"nom": "Fourche de ouf",
+					"desc": "efficacité fermier x1.5",
+					"prix": 15,
+					"building_id": 1,
+					"multiplicateur": 1.5
+				}
+			],
+			"others": [
+
+			]
+		}
+	}
 }

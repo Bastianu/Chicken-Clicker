@@ -46,11 +46,11 @@ function initGame(){
 
 function initBuildings(){
     var result = "<ul class=\"list-group\">";
-    for(var i =0; i<data["buildings"].length;i++){
-        result += "<li class=\"list-group-item\"><div>"+ data["buildings"][i]["nom"]  +"</div> <div>( "+data["buildings"][i]["production"]
+    for(var i =0; i<data[1].length;i++){
+        result += "<li class=\"list-group-item\"><div>"+ data[1][i]["nom"]  +"</div> <div>( "+data[1][i]["production"]
         + " <img src='assets/egg.png' width=15> par secondes )</div> <div class=\"btn-group\"><button id=\"buyer_"
-        + data['buildings'][i]['id'] + "\" type=\"button\" class=\"btn btn-outline-info btn-sm\" id='"+data['buildings'][i]['id']
-        + "' onclick='buyItem("+i+","+data["buildings"][i]["prix"]+", 1)'>"+data["buildings"][i]["prix"]
+        + data[1][i]['id'] + "\" type=\"button\" class=\"btn btn-outline-info btn-sm\" id='"+data[1][i]['id']
+        + "' onclick='buyItem("+i+","+data[1][i]["prix"]+", 1)'>"+data[1][i]["prix"]
         + " <img src='assets/egg.png' width=15></button></div></li><br>";
     }
     result += "</ul>";
@@ -60,14 +60,14 @@ function initBuildings(){
 function showUpgrades(){
     var result = "<ul class=\"list-group\">";
 
-    data["ameliorations"]["clics"].forEach( c => {
+    data[0]["clics"].forEach( c => {
         if(!myUpgrades.includes(c["id"])) {
             result += "<li class=\"list-group-item\"><div>" + c["nom"]+" : "+ c["desc"]
             +"</div> <div><button class=\"btn btn-outline-info btn-sm\" id='"+c['id']  +"' onclick='buyUpgrade("+c["id"]+","+c["prix"]
             +',"clic",'+c["multiplicateur"]+",-1)'>"+c["prix"] + " <img src='assets/egg.png' width=15></button></div></li><br>";
         }
     });
-    data["ameliorations"]["buildings"].forEach( b => {
+    data[0]["buildings"].forEach( b => {
         if(!myUpgrades.includes(b["id"])) {
             result += "<li class=\"list-group-item\"><div>" + b["nom"]+" : "+ b["desc"]
             +"</div> <div><button class=\"btn btn-outline-info btn-sm\" id='"+b['id'] +"' onclick='buyUpgrade("+b["id"]+","+b["prix"]
@@ -81,7 +81,7 @@ function showUpgrades(){
 function updateRewards(){
     text = "";
     for(var i=0; i<myRewards.length ; i++){
-        text += '<div class="myTooltipRight list-group-item list-group-item-secondary">'+ data["rewards"][myRewards[i][0]][myRewards[i][1]]["title"] +'<span class="tooltiptextRight">'+data["rewards"][myRewards[i][0]][myRewards[i][1]]["desc"]+'</span> </div><br>';     
+        text += '<div class="myTooltipRight list-group-item list-group-item-secondary">'+ data[2][myRewards[i][0]][myRewards[i][1]]["title"] +'<span class="tooltiptextRight">'+data[2][myRewards[i][0]][myRewards[i][1]]["desc"]+'</span> </div><br>';     
     }
     myRewards_Elem.innerHTML = text;
 }
@@ -95,9 +95,9 @@ function changeMultiplier(){
 
 function applyMultiplier(){
         document.getElementById("multiplier").innerText = "x"+currentMultiplier;      
-        for(var i =0; i<data["buildings"].length;i++){
+        for(var i =0; i<data[1].length;i++){
             var totalcost =0;
-            for (var j=0;j<currentMultiplier;j++) totalcost +=Math.round(data["buildings"][i]["prix"]*Math.pow(1.05, myBuildings[i]+j));
+            for (var j=0;j<currentMultiplier;j++) totalcost +=Math.round(data[1][i]["prix"]*Math.pow(1.05, myBuildings[i]+j));
             document.getElementById("buyer_" + (i+1) ).innerHTML =  totalcost  + " <img src='assets/egg.png' width=15>";
             document.getElementById("buyer_" + (i+1)).setAttribute("onclick", "buyItem("+i+","+totalcost+","+currentMultiplier+")");    
         }
@@ -107,9 +107,9 @@ function updateMyBuildings(){
     text = "";
     for(var i=0; i<myBuildings.length ; i++){
         if(myBuildings[i]!=0){
-            var production = myBuildings[i] * myBuildingsBoost[i] * data["buildings"][i]["production"];
-            var bonus = "total: "+(data["buildings"][i]["production"]*myBuildings[i])+"<br>"+((myBuildingsBoost[i]==1)? "aucun bonus": "x "+myBuildingsBoost[i]) +"<br>= "+production;
-            text += '<div class="myTooltipRight">'+data["buildings"][i]["nom"] + " x " + myBuildings[i] + " ( "+ (production)+"/s )" +'<span class="tooltiptextRight">'+bonus+'</span> </div><br>';
+            var production = myBuildings[i] * myBuildingsBoost[i] * data[1][i]["production"];
+            var bonus = "total: "+(data[1][i]["production"]*myBuildings[i])+"<br>"+((myBuildingsBoost[i]==1)? "aucun bonus": "x "+myBuildingsBoost[i]) +"<br>= "+production;
+            text += '<div class="myTooltipRight">'+data[1][i]["nom"] + " x " + myBuildings[i] + " ( "+ (production)+"/s )" +'<span class="tooltiptextRight">'+bonus+'</span> </div><br>';
         }
         
     }
@@ -171,13 +171,16 @@ function deletePlayerData(){
 }
 
 function loadContent() {
-    fetch('content.json') // --> firebase
+    fetch('https://us-central1-pwa-chicken-clicker.cloudfunctions.net/getDatas') // --> firebase
         .then(response => {
             response.json()
                 .then(result => { 
                     data = Array(result)[0];
+                    console.log(data)
+                    console.log(data[2]["temps"])
+                    console.log(data[1].length)
                     if(myBuildings.length==0){ 
-                        for(var i =0; i<data["buildings"].length;i++) {
+                        for(var i =0; i<data[1].length;i++) {
                             myBuildings.push(0); 
                             myBuildingsBoost.push(1);
                         }
@@ -212,7 +215,7 @@ function game_timer(){
     eggsThisSecond = 0;
     for(var i=0; i<myBuildings.length ; i++){
         //console.log(myBuildings[i]+ " * "+ myBuildingsBoost[i]+" * "+data["buildings"][i]["production"]);
-        eggsThisSecond += myBuildings[i] * myBuildingsBoost[i] * data["buildings"][i]["production"];
+        eggsThisSecond += myBuildings[i] * myBuildingsBoost[i] * data[1][i]["production"];
     }
     eggs += eggsThisSecond;
     updateEggsPerSec();
@@ -262,14 +265,14 @@ function buyUpgrade(i, prix, type, effect, b_id){
 function fetchUpgrade(i){
     console.log("fetching upgrade id"+i);
     
-    data["ameliorations"]["clics"].forEach(upgrade => {
+    data[0]["clics"].forEach(upgrade => {
         if(upgrade["id"] == i){
             console.log(upgrade["nom"]+ "  "+upgrade["multiplicateur"]);
             eggsOnClick*= upgrade["multiplicateur"];
         }
     });
 
-    data["ameliorations"]["buildings"].forEach(upgrade => {
+    data[0]["buildings"].forEach(upgrade => {
         if(upgrade["id"] == i){
             console.log(upgrade["nom"]+ "  "+upgrade["multiplicateur"]);
             myBuildingsBoost[upgrade["building_id"]]*= upgrade["multiplicateur"];
@@ -309,7 +312,7 @@ function addEggs(nb_eggs){
 
 function addClic(){
     clics += 1;
-    data["rewards"]["clic"].forEach(palier => {
+    data[2]["clic"].forEach(palier => {
         if(palier["requirement"] == clics){
             showNotification(palier["title"], palier["desc"], palier["img"]);
             myRewards.push(["clic", palier["id"]-1]);
@@ -320,7 +323,7 @@ function addClic(){
 
 function addSecond(){
     secondPassed +=1;
-    data["rewards"]["temps"].forEach(palier => {
+    data[2]["temps"].forEach(palier => {
         if(palier["requirement"] == secondPassed){
             showNotification(palier["title"], palier["desc"], palier["img"]);
             myRewards.push(["temps", palier["id"]-1]);
