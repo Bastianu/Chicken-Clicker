@@ -9,14 +9,14 @@
     <meta name="viewport">
 </head>
 
-<body onload="initGame();" class="container-fluid">
+<body onload="initGame();" class="container-fluid disable-dbl-tap-zoom">
     <div class="row">
-        <div class="col user-select-none text-center">
-            <span type="button" class="btn float-right" id="shopShow" onclick="showShop()">Boutique</span>
-            <div class="jumbotron">        
+        <div class="col user-select-none text-center" id="main">
+            <div class="jumbotron" id="main2">    
+                <span id="saveLoadBtnPhone"></span>  
                 <div class="mx-auto" style="width: auto;">
                     <div id="clicker">
-                        <img type="button" src="assets/poule.png"/>
+                        <img type="button" id="chickenButton" src="assets/poule.png"/>
                     </div>
                     <hr>
                     <div class="alert alert-dark">
@@ -25,9 +25,17 @@
                         <div id="eggsPerSecond">0 oeufs par secondes</div>
                     </div>
                 </div>
+                <span type="button" class="btn float-right btn-warning btn-lg" id="shopShowBtn" onclick="showShop()">Boutique</span>
+                <span type="button" class="btn btn-warning btn-lg" id="rewardShowBtn" onclick="showRewards()">Succès</span>
+                <span type="button" class="btn float-left btn-warning btn-lg" id="boostShowBtn" onclick="showBoost()">Améliorations</span> 
             </div>
 
-            <div class="rounded" style="height: 100%; background-color: lightgray; overflow-y: auto; max-height: 40vh;">
+            <div id="rewards" class="rounded" style="height: 100%; background-color: lightgray; overflow-y: auto; max-height: 40vh;">
+                <span type="button" class="btn float-left btn-lg back" onclick="backToGame()">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                    </svg>
+                </span>  
                 <span class="float-left">
                     <img src="assets/trophy.png" alt="trophy" style="width: 100px;">
                 </span>
@@ -35,31 +43,15 @@
             </div>
         </div>
 
-        <div class="col">
-            
-                <button type = "button" class="btn myTooltipRight float-left" onclick="savePlayerData()">
-                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
-                        <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z"/>
-                        <path fill-rule="evenodd" d="M8 6a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 10.293V6.5A.5.5 0 0 1 8 6z"/>
-                      </svg>
-                    <span class="tooltiptextRight h6">
-                        Sauvegarder votre partie
-                    </span>
-                </button>
-                <button type = "button" class="btn myTooltipRight float-right" onclick="getPlayerData()">
-                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
-                        <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z"/>
-                        <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V7.707l1.146 1.147a.5.5 0 0 0 .708-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L7.5 7.707V11.5a.5.5 0 0 0 .5.5z"/>
-                      </svg>
-                    <span class="tooltiptextRight h6">
-                        Charger votre partie
-                    </span>
-                </button><br>
-                <div id="myBuildings"></div>
-                <br>
-            
+        <div class="col" id="boost">
+            <span type="button" class="btn float-left btn-lg back" onclick="backToGame()">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                </svg>
+            </span>
+            <div id="saveLoadBtnFull"></div>
+            <div id="myBuildings"></div>
+            <br>
             <div class="text-center h2">
                 Améliorations 
             </div>
@@ -69,6 +61,11 @@
         </div>
 
         <nav class="col jumbotron" id="shop" style="overflow-y: auto; max-height: 100vh;">
+            <span type="button" class="btn float-left btn-lg back"onclick="backToGame()">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                </svg>
+            </span>
             <div class="text-center h2">
                 Boutique
             </div>
@@ -79,7 +76,28 @@
         </nav>
     </div>
 
-
+    <div id="saveLoadButtons" hidden>
+        <button type = "button" class="btn myTooltipRight float-left" onclick="savePlayerData()">
+            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
+                <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z"/>
+                <path fill-rule="evenodd" d="M8 6a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 10.293V6.5A.5.5 0 0 1 8 6z"/>
+                </svg>
+            <span class="tooltiptextRight h6">
+                Sauvegarder votre partie
+            </span>
+        </button>
+        <button type = "button" class="btn myTooltipRight float-right" onclick="getPlayerData()">
+            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
+                <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z"/>
+                <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V7.707l1.146 1.147a.5.5 0 0 0 .708-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L7.5 7.707V11.5a.5.5 0 0 0 .5.5z"/>
+                </svg>
+            <span class="tooltiptextRight h6">
+                Charger votre partie
+            </span>
+        </button><br>
+    </div>
 
     <script src="main.js"></script>
     <script src="secondary.js"></script>

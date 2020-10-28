@@ -218,7 +218,7 @@ function game_timer(){
     updateEggsPerSec();
     updateEggs();
     addSecond();
-    console.log("1 seconde ("+secondPassed+"), oeufs produits = "+eggsThisSecond);  
+    //console.log("1 seconde ("+secondPassed+"), oeufs produits = "+eggsThisSecond);  
 }
 
 

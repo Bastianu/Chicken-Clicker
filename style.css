@@ -9,13 +9,17 @@ html, body {
   background-color: #eeb045;
 }
 
-#clicker:hover{
+#clicker{
+  transition: transform 150ms;
+}
+
+/*#clicker:hover{
   transform: scale(1.1);
 }
 
 #clicker:active{
-  transform: scale(1.01);
-}
+  transform: scale(1.01);  
+}*/
 
 .myTooltip {
   position: relative;
@@ -78,4 +82,8 @@ html, body {
 
 .myTooltipRight:hover .tooltiptextRight {
   visibility: visible;
+}
+
+.disable-dbl-tap-zoom {
+  touch-action: manipulation;
 }
