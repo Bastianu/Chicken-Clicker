@@ -168,6 +168,15 @@ function savePlayerData(){
 
 function deletePlayerData(){
     localStorage.clear();   
+
+    fetch('https://us-central1-pwa-chicken-clicker.cloudfunctions.net/deleteSave') // --> firebase
+        .then(response => {
+            response.json()
+                .then(result => { 
+                    data = Array(result)[0];  
+                });
+        })
+        .catch(console.error);
 }
 
 function loadContent() {

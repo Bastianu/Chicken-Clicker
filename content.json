@@ -147,5 +147,14 @@
 
 			]
 		}
-	}
+	},
+
+	"save" : [{
+		"eggs": 0,
+		"myBuildings": "",
+		"clics": "0",
+		"seconds": "0",
+		"myRewards": "",
+		"myUpgrades": ""
+	}]
 }
