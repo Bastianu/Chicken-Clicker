@@ -12,8 +12,8 @@ function showShop() {
     for (let element of document.getElementsByClassName("hideWhenPhone")){
         element.hidden = true
     }
+    document.getElementById("main").style.width = "0%"
     document.getElementById("shop").hidden = false;
-    document.getElementById("main").hidden = true
 }
 
 function showBoost() {
@@ -21,7 +21,7 @@ function showBoost() {
         element.hidden = true
     }
     document.getElementById("boost").hidden = false;
-    document.getElementById("main").hidden = true
+    document.getElementById("main").style.width = "0%"
 }
 
 function showRewards() {
@@ -29,14 +29,12 @@ function showRewards() {
         element.hidden = true
     }
     document.getElementById("rewards").hidden = false;
-    //document.getElementById("main2").hidden = true
-    //document.getElementById("main2").style.transform = "scale(0)"
-    //document.getElementById("main2").style.translate = ""
+    document.getElementById("main2").style.height = "0%"
 }
 
 function backToGame(){
-    document.getElementById("main").hidden = false;
-    document.getElementById("main2").hidden = false;
+    document.getElementById("main").style.width = "100%"
+    document.getElementById("main2").style.height = "100%"
     for (let element of document.getElementsByClassName("hideWhenPhone")){
         element.hidden = true
     }

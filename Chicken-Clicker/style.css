@@ -13,8 +13,14 @@ html, body {
   transition: transform 150ms;
 }
 
+#main{
+  overflow: hidden;
+  transition: width 250ms;
+}
+
 #main2{
-  transition: transform 1s;
+  overflow: hidden;
+  transition: height 250ms;
 }
 
 .myTooltip {
