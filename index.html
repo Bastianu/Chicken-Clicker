@@ -25,12 +25,12 @@
                         <div id="eggsPerSecond">0 oeufs par secondes</div>
                     </div>
                 </div>
-                <span type="button" class="btn float-right btn-warning btn-lg" id="shopShowBtn" onclick="showShop()">Boutique</span>
-                <span type="button" class="btn btn-warning btn-lg" id="rewardShowBtn" onclick="showRewards()">Succès</span>
-                <span type="button" class="btn float-left btn-warning btn-lg" id="boostShowBtn" onclick="showBoost()">Améliorations</span> 
+                <span type="button" class="btn float-right btn-warning btn-lg showBtn"  onclick="showShop()">Boutique</span>
+                <span type="button" class="btn btn-warning btn-lg showBtn" onclick="showRewards()">Succès</span>
+                <span type="button" class="btn float-left btn-warning btn-lg showBtn" onclick="showBoost()">Améliorations</span> 
             </div>
 
-            <div id="rewards" class="rounded" style="height: 100%; background-color: lightgray; overflow-y: auto; max-height: 40vh;">
+            <div id="rewards" class="rounded hideWhenPhone" style="height: 100%; background-color: lightgray; overflow-y: auto; max-height: 40vh;">
                 <span type="button" class="btn float-left btn-lg back" onclick="backToGame()">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
@@ -43,7 +43,7 @@
             </div>
         </div>
 
-        <div class="col" id="boost">
+        <div class="col hideWhenPhone" id="boost">
             <span type="button" class="btn float-left btn-lg back" onclick="backToGame()">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
@@ -60,7 +60,7 @@
             </div>   
         </div>
 
-        <nav class="col jumbotron" id="shop" style="overflow-y: auto; max-height: 100vh;">
+        <nav class="col jumbotron hideWhenPhone" id="shop" style="overflow-y: auto; max-height: 100vh;">
             <span type="button" class="btn float-left btn-lg back"onclick="backToGame()">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>

@@ -1,3 +1,5 @@
+// Replace "getElementById" --> "getElementByClassName"
+
 window.addEventListener("load", function (event) {
     displayButtons()
 })
@@ -7,42 +9,47 @@ window.addEventListener("resize",function(event){
 })
 
 function showShop() {
+    for (let element of document.getElementsByClassName("hideWhenPhone")){
+        element.hidden = true
+    }
     document.getElementById("shop").hidden = false;
-    document.getElementById("rewards").hidden = true
-    document.getElementById("boost").hidden = true
     document.getElementById("main").hidden = true
 }
 
 function showBoost() {
+    for (let element of document.getElementsByClassName("hideWhenPhone")){
+        element.hidden = true
+    }
     document.getElementById("boost").hidden = false;
-    document.getElementById("shop").hidden = true
-    document.getElementById("rewards").hidden = true
     document.getElementById("main").hidden = true
 }
 
 function showRewards() {
+    for (let element of document.getElementsByClassName("hideWhenPhone")){
+        element.hidden = true
+    }
     document.getElementById("rewards").hidden = false;
-    document.getElementById("boost").hidden = true
-    document.getElementById("shop").hidden = true
-    document.getElementById("main2").hidden = true
+    //document.getElementById("main2").hidden = true
+    //document.getElementById("main2").style.transform = "scale(0)"
+    //document.getElementById("main2").style.translate = ""
 }
 
 function backToGame(){
     document.getElementById("main").hidden = false;
     document.getElementById("main2").hidden = false;
-    document.getElementById("boost").hidden = true
-    document.getElementById("shop").hidden = true
-    document.getElementById("rewards").hidden = true
+    for (let element of document.getElementsByClassName("hideWhenPhone")){
+        element.hidden = true
+    }
 }
 
 function displayButtons(){
     if (screen.width >= 768) {
-        document.getElementById("shopShowBtn").hidden = true
-        document.getElementById("boostShowBtn").hidden = true
-        document.getElementById("rewardShowBtn").hidden = true
-        document.getElementById("shop").hidden = false;
-        document.getElementById("boost").hidden = false;
-        document.getElementById("rewards").hidden = false;
+        for (let element of document.getElementsByClassName("showBtn")){
+            element.hidden = true
+        }
+        for (let element of document.getElementsByClassName("hideWhenPhone")){
+            element.hidden = false
+        }
         document.getElementById("main").hidden = false;
         document.getElementById("main2").hidden = false;
         for (let element of document.getElementsByClassName("back")){
@@ -53,12 +60,12 @@ function displayButtons(){
         displaySaveLoadBtnFull()
     }
     else{
-        document.getElementById("shopShowBtn").hidden = false
-        document.getElementById("boostShowBtn").hidden = false
-        document.getElementById("rewardShowBtn").hidden = false
-        document.getElementById("shop").hidden = true;
-        document.getElementById("boost").hidden = true;
-        document.getElementById("rewards").hidden = true;
+        for (let element of document.getElementsByClassName("showBtn")){
+            element.hidden = false
+        }
+        for (let element of document.getElementsByClassName("hideWhenPhone")){
+            element.hidden = true
+        }
         for (let element of document.getElementsByClassName("back")){
             element.hidden = false
         }

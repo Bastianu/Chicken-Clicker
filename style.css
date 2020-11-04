@@ -13,13 +13,9 @@ html, body {
   transition: transform 150ms;
 }
 
-/*#clicker:hover{
-  transform: scale(1.1);
+#main2{
+  transition: transform 1s;
 }
-
-#clicker:active{
-  transform: scale(1.01);  
-}*/
 
 .myTooltip {
   position: relative;
