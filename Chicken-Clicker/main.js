@@ -19,6 +19,7 @@ var myRewards = [];
 
 //** content.json */
 var data = []; 
+var save = [];
 
 //** vars jeu */
 var timer;
@@ -128,48 +129,111 @@ function updateEggsPerSec(){
             // *************BACK************//
             //////////////////////////////////
 
-function getPlayerData(){
+function getPlayerData(){ // Il faudra passer le bon ID par paramètres
 
+    fetch('https://us-central1-pwa-chicken-clicker.cloudfunctions.net/getSave?id=1') // --> firebase
+        .then(response => {
+            response.json()
+                .then(result => { 
+                    save = Array(result)[0];
+                    console.log("Get By id returns : ")
+                    console.log(save)
+                    console.log("Récupère la save sur Firebase")
 
-    eggs = parseInt(localStorage.getItem("eggs"));
-    updateEggs();
-    clics = parseInt(localStorage.getItem("clics"));
-    secondPassed = parseInt(localStorage.getItem("secondes"));
-    myBuildings = localStorage.getItem("myBuildings").split(',').map(b=>parseInt(b));
-    myUpgrades = localStorage.getItem("myUpgrades").split(',').map(b=>parseInt(b));
+                    eggs = parseInt(save[1]);
+                    updateEggs();
+                    clics = parseInt(save[0]);
+                    secondPassed = parseInt(save[6]);
+                    console.log(save[3].toString())
+                    myBuildings = save[3].toString().split(',').map(b=>parseInt(b));
+                    myUpgrades = save[5].toString().split(',').map(b=>parseInt(b));
 
-    myBuildingsBoost.fill(1);
-    eggsOnClick = 1;
-    //load les upgrades et les applique
-    if(isNaN(myUpgrades[0])) { myUpgrades = []};
-    myUpgrades.forEach(u => fetchUpgrade(u));
-    showUpgrades();
-    
-    //load les batiments sur l'app
-    updateMyBuildings();
+                    myBuildingsBoost.fill(1);
+                    eggsOnClick = 1;
+                    //load les upgrades et les applique
+                    if(isNaN(myUpgrades[0])) { myUpgrades = []};
+                    myUpgrades.forEach(u => fetchUpgrade(u));
+                    showUpgrades();
+                    
+                    //load les batiments sur l'app
+                    updateMyBuildings();
 
-    //load les rewards et les applique
-    var temp = localStorage.getItem("myRewards").split(',');
-    if(temp[0]=="") { temp = []};
-    myRewards = [];
-    for(var i = 0; i<temp.length;i=i+2)  myRewards.push([temp[i], +temp[i+1]]);
-    updateRewards();
+                    //load les rewards et les applique
+                    var temp = save[4].toString().split(',');
+                    if(temp[0]=="") { temp = []};
+                    myRewards = [];
+                    for(var i = 0; i<temp.length;i=i+2)  myRewards.push([temp[i], +temp[i+1]]);
+                    updateRewards();
+                });
+        })
+        .catch(() => {
+            eggs = parseInt(localStorage.getItem("eggs"));
+            updateEggs();
+            clics = parseInt(localStorage.getItem("clics"));
+            secondPassed = parseInt(localStorage.getItem("secondes"));
+            myBuildings = localStorage.getItem("myBuildings").split(',').map(b=>parseInt(b));
+            myUpgrades = localStorage.getItem("myUpgrades").split(',').map(b=>parseInt(b));
+
+            console.log("Récupère la save dans le local storage")
+
+            myBuildingsBoost.fill(1);
+            eggsOnClick = 1;
+            //load les upgrades et les applique
+            if(isNaN(myUpgrades[0])) { myUpgrades = []};
+            myUpgrades.forEach(u => fetchUpgrade(u));
+            showUpgrades();
+            
+            //load les batiments sur l'app
+            updateMyBuildings();
+
+            //load les rewards et les applique
+            var temp = localStorage.getItem("myRewards").split(',');
+            if(temp[0]=="") { temp = []};
+            myRewards = [];
+            for(var i = 0; i<temp.length;i=i+2)  myRewards.push([temp[i], +temp[i+1]]);
+            updateRewards();
+        });
+
 }
 
-function savePlayerData(){
-    deletePlayerData();
+function savePlayerData(){ // Il faudra passer le bon ID dans le json
+
+    const playerSave = {
+        id: 1, // On ajoute l'id pour notre FASS
+        eggs: eggs.toString(),
+        myBuildings: myBuildings.toString(),
+        clics: clics,
+        seconds: secondPassed,
+        myRewards: myRewards.toString(),
+        myUpgrades: myUpgrades.toString()
+    }
+
+    //deletePlayerData();
     localStorage.setItem("eggs", eggs.toString());
     localStorage.setItem("myBuildings", myBuildings.toString());
     localStorage.setItem("clics", clics);
     localStorage.setItem("secondes", secondPassed);
     localStorage.setItem("myRewards", myRewards.toString());
     localStorage.setItem("myUpgrades", myUpgrades.toString());
+
+    fetch('https://us-central1-pwa-chicken-clicker.cloudfunctions.net/addSave', {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(playerSave)
+        })
+        .then(resp => {
+          console.log(resp);
+        })
 }
 
-function deletePlayerData(){
+function deletePlayerData(){ // Il faudra passer le bon ID par paramètres
     localStorage.clear();   
 
-    fetch('https://us-central1-pwa-chicken-clicker.cloudfunctions.net/deleteSave') // --> firebase
+    fetch('https://us-central1-pwa-chicken-clicker.cloudfunctions.net/deleteSave?id=2', {
+        method: 'DELETE'
+        }) // --> firebase
         .then(response => {
             response.json()
                 .then(result => { 

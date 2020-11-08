@@ -51,11 +51,29 @@ exports.getDatas = functions.https.onRequest((req, res) => {
 
 
 const refSave = db.ref('/save');
+let refSaveById = db.ref('/save');
 
 const getSaveFromDatabase = (res) => {
   let save = [];
 
   return refSave.on('value', (snapshot) => {
+    snapshot.forEach((info) => {
+      let objGame = info.val();
+      objGame.id = info.key;
+      save.push(objGame);
+    });
+    res.status(200).json(save);
+  }, (error) => {
+    res.status(500).json({
+      message: `Something went wrong. ${error}`
+    })
+  })
+};
+
+const getSaveByIdFromDatabase = (res) => {
+  let save = [];
+
+  return refSaveById.on('value', (snapshot) => {
     snapshot.forEach((info) => {
       let objGame = info.val();
       objGame.id = info.key;
@@ -76,7 +94,9 @@ exports.getSave = functions.https.onRequest((req, res) => {
         message: 'Not allowed'
       });
     }
-    getSaveFromDatabase(res)
+    const id = req.query.id
+    refSaveById = db.ref('/save/'+ id)
+    getSaveByIdFromDatabase(res)
   });
 });
 
@@ -89,7 +109,7 @@ exports.addSave = functions.https.onRequest((req, res) => {
     }
     console.log(req.body);
     const data = req.body;
-    refSave.set(data);
+    refSave.child(data.id).set(data)
     getSaveFromDatabase(res);
   });
 });
@@ -106,4 +126,5 @@ exports.deleteSave = functions.https.onRequest((req, res) => {
     getSaveFromDatabase(res)
   })
 })
+
 
