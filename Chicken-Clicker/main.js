@@ -7,6 +7,7 @@ var myRewards_Elem = document.getElementById("myRewards");
 var ameliorations_Elem = document.getElementById("ameliorations");
 
 //** vars utilisateur */
+var playerID;
 var eggs = 0; 
 var clics = 0; 
 var eggsOnClick = 1;
@@ -38,6 +39,13 @@ function initGame(){
     loadContent();
     initClicker();
     initGameTimer();
+
+    if(localStorage.getItem("playerID")== "" || localStorage.getItem("playerID")==null){
+        playerID = "id"+Date.now();
+        console.log(playerID);
+        localStorage.setItem("playerID", playerID);
+    }
+    playerID = localStorage.getItem("playerID");
 }
 
             //////////////////////////////////
@@ -167,14 +175,53 @@ function savePlayerData(){
 }
 
 function deletePlayerData(){
-    localStorage.clear();   
+    localStorage.removeItem("eggs");
+    localStorage.removeItem("myBuildings");
+    localStorage.removeItem("clics");
+    localStorage.removeItem("secondes");
+    localStorage.removeItem("myRewards");
+    localStorage.removeItem("myUpgrades");
+}
 
-    fetch('https://us-central1-pwa-chicken-clicker.cloudfunctions.net/deleteSave') // --> firebase
+function saveCloudData(){
+    fetch(('https://us-central1-pwa-chicken-clicker.cloudfunctions.net/addSave'), {
+        method: 'post',
+        mode: 'cors',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({"id": playerID, "eggs": eggs, "clics": clics, "myBuildings": myBuildings.toString(), "myRewards": myRewards.toString(), "myUpgrades": myUpgrades.toString(), "seconds": secondPassed})
+      }).then(res=>res.json())
+        .then(res => console.log(res));
+}
+
+function getCloudData(){
+    fetch('https://us-central1-pwa-chicken-clicker.cloudfunctions.net/getSave/'+playerID) 
         .then(response => {
             response.json()
                 .then(result => { 
-                    data = Array(result)[0];  
+                    console.log("!!!!!!!");
+                    console.log(result);
+                    console.log("!!!!!!!");
                 });
+        })
+        .catch(console.error);
+}
+
+function deleteCloudData(){
+    
+    fetch('https://us-central1-pwa-chicken-clicker.cloudfunctions.net/deleteSave/'+playerID, {
+        method: 'delete',
+        mode: 'cors'
+    }) 
+        .then(response => {
+            if(response.status == 200){
+                console.log("suppression success");
+            }
+            else{
+                console.log(response.status);
+            }
         })
         .catch(console.error);
 }
@@ -185,9 +232,9 @@ function loadContent() {
             response.json()
                 .then(result => { 
                     data = Array(result)[0];
-                    console.log(data)
-                    console.log(data[2]["temps"])
-                    console.log(data[1].length)
+                    //console.log(data)
+                    //console.log(data[2]["temps"])
+                    //console.log(data[1].length)
                     if(myBuildings.length==0){ 
                         for(var i =0; i<data[1].length;i++) {
                             myBuildings.push(0); 
@@ -245,7 +292,7 @@ function buyItem(i, prix, nb){
         console.log(myBuildingsBoost);
     }
     else {
-        console.log("pas assez d'oeufs")
+        //console.log("pas assez d'oeufs")
     }   
 }
 
@@ -284,7 +331,7 @@ function fetchUpgrade(i){
     data[0]["buildings"].forEach(upgrade => {
         if(upgrade["id"] == i){
             console.log(upgrade["nom"]+ "  "+upgrade["multiplicateur"]);
-            myBuildingsBoost[upgrade["building_id"]]*= upgrade["multiplicateur"];
+            myBuildingsBoost[upgrade["building_id"]-1]*= upgrade["multiplicateur"];
         }
     });
 }
