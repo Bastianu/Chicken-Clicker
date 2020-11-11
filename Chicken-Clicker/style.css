@@ -6,7 +6,8 @@ html, body {
 }
 
 .jumbotron{
-  background-color: #eeb045;
+  /*background-color: #eeb045;*/
+  background: linear-gradient(to bottom, #ffa825 0%, #ffcc00 100%); /*ff9900*/
 }
 
 #clicker{

@@ -90,7 +90,7 @@ function showUpgrades(){
 function updateRewards(){
     text = "";
     for(var i=0; i<myRewards.length ; i++){
-        text += '<div class="myTooltipRight list-group-item list-group-item-secondary">'+ data[2][myRewards[i][0]][myRewards[i][1]]["title"] +'<span class="tooltiptextRight">'+data[2][myRewards[i][0]][myRewards[i][1]]["desc"]+'</span> </div><br>';     
+        text += '<div style="background-color: #FBF9C3;margin-right: 50px;" class="myTooltipRight list-group-item list-group-item-secondary">'+ data[2][myRewards[i][0]][myRewards[i][1]]["title"] +'<span class="tooltiptextRight">'+data[2][myRewards[i][0]][myRewards[i][1]]["desc"]+'</span></div><br>';     
     }
     myRewards_Elem.innerHTML = text;
 }

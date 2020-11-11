@@ -21,7 +21,7 @@
                             <img type="button" id="chickenButton" src="assets/poule.png"/>
                         </div>
                         <hr>
-                        <div class="alert alert-dark">
+                        <div class="alert" style="background-color: #FBF9C3;">
                             <span class="h1 align-bottom" id="eggs">0</span>
                             <img src='assets/egg.png' style="width: 40px">
                             <div id="eggsPerSecond">0 oeufs par secondes</div>
@@ -33,7 +33,7 @@
                 </div>
             </div>
 
-            <div id="rewards" class="rounded hideWhenPhone" style="height: 100%; background-color: lightgray; overflow-y: auto; max-height: 40vh;">
+            <div id="rewards" class="rounded hideWhenPhone" style="height: 100%; background: linear-gradient(to bottom, #ffff66 0%, #ff9999 100%); overflow-y: auto; max-height: 40vh;">
                 <span type="button" class="btn float-left btn-lg back" onclick="backToGame()">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
@@ -53,14 +53,20 @@
                 </svg>
             </span>
             <div id="saveLoadBtnFull"></div>
-            <div id="myBuildings"></div>
-            <br>
-            <div class="text-center h2">
-                Améliorations 
+            <br><br>
+            <div style="height: 100%; overflow-y: auto; max-height: 70vh;">
+                <div class="text-center h2">
+                    Ma Ferme 
+                </div>
+                <div id="myBuildings"></div>
+
+                <div class="text-center h2">
+                    Améliorations 
+                </div>
+                
+                <div id="ameliorations" style="height: 100%; overflow-y: auto; max-height: 60vh;">            
+                </div>   
             </div>
-            
-            <div id="ameliorations">            
-            </div>   
         </div>
 
         <nav class="col jumbotron hideWhenPhone" id="shop" style="overflow-y: auto; max-height: 100vh;">
