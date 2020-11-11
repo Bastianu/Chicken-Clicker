@@ -139,7 +139,7 @@ function updateEggsPerSec(){
 
 function getPlayerData(){ // Il faudra passer le bon ID par paramètres
 
-    fetch('https://us-central1-pwa-chicken-clicker.cloudfunctions.net/getSave?id=1') // --> firebase
+    fetch('https://us-central1-pwa-chicken-clicker.cloudfunctions.net/getSave?id='+playerID) // --> firebase
         .then(response => {
             response.json()
                 .then(result => { 
@@ -205,17 +205,6 @@ function getPlayerData(){ // Il faudra passer le bon ID par paramètres
 }
 
 function savePlayerData(){ // Il faudra passer le bon ID dans le json
-
-    const playerSave = {
-        id: 1, // On ajoute l'id pour notre FASS
-        eggs: eggs.toString(),
-        myBuildings: myBuildings.toString(),
-        clics: clics,
-        seconds: secondPassed,
-        myRewards: myRewards.toString(),
-        myUpgrades: myUpgrades.toString()
-    }
-
     //deletePlayerData();
     localStorage.setItem("eggs", eggs.toString());
     localStorage.setItem("myBuildings", myBuildings.toString());
@@ -224,16 +213,7 @@ function savePlayerData(){ // Il faudra passer le bon ID dans le json
     localStorage.setItem("myRewards", myRewards.toString());
     localStorage.setItem("myUpgrades", myUpgrades.toString());
 
-    fetch('https://us-central1-pwa-chicken-clicker.cloudfunctions.net/addSave', {
-            method: 'POST', 
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(playerSave)
-        })
-        .then(resp => {
-          console.log(resp);
-        })
+    saveCloudData();
 }
 
 function deletePlayerData(){
@@ -243,43 +223,54 @@ function deletePlayerData(){
     localStorage.removeItem("secondes");
     localStorage.removeItem("myRewards");
     localStorage.removeItem("myUpgrades");
+
+    deleteCloudData();
 }
 
 function saveCloudData(){
-    fetch(('https://us-central1-pwa-chicken-clicker.cloudfunctions.net/addSave'), {
-        method: 'post',
-        mode: 'cors',
-        headers: {
-          'Accept': 'application/json, text/plain, */*',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({"id": playerID, "eggs": eggs, "clics": clics, "myBuildings": myBuildings.toString(), "myRewards": myRewards.toString(), "myUpgrades": myUpgrades.toString(), "seconds": secondPassed})
-      }).then(res=>res.json())
-        .then(res => console.log(res));
+    var playerSave = {
+        id: playerID, 
+        eggs: eggs,
+        myBuildings: myBuildings.toString(),
+        clics: clics,
+        seconds: secondPassed,
+        myRewards: myRewards.toString(),
+        myUpgrades: myUpgrades.toString()
+    }
+    fetch('https://us-central1-pwa-chicken-clicker.cloudfunctions.net/addSave', {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(playerSave)
+        })
+        .then(resp => {
+            if(resp.status == 200){
+                console.log("sauvegarde réussie");
+            }
+            else{
+                console.log(resp.status);
+            }
+        })
 }
 
 function getCloudData(){
-    fetch('https://us-central1-pwa-chicken-clicker.cloudfunctions.net/getSave/'+playerID) 
+    /*fetch('https://us-central1-pwa-chicken-clicker.cloudfunctions.net/getSave/'+playerID) 
         .then(response => {
             response.json()
                 .then(result => { 
-                    console.log("!!!!!!!");
-                    console.log(result);
-                    console.log("!!!!!!!");
                 });
         })
-        .catch(console.error);
+        .catch(console.error);*/
 }
 
 function deleteCloudData(){
     
-    fetch('https://us-central1-pwa-chicken-clicker.cloudfunctions.net/deleteSave/'+playerID, {
-        method: 'delete',
-        mode: 'cors'
-    }) 
-        .then(response => {
+    fetch('https://us-central1-pwa-chicken-clicker.cloudfunctions.net/deleteSave?id='+playerID, {
+        method: 'DELETE'
+        }).then(response => {
             if(response.status == 200){
-                console.log("suppression success");
+                console.log("suppression réussie");
             }
             else{
                 console.log(response.status);
