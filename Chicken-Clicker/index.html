@@ -3,6 +3,7 @@
 
 <head>
     <link rel="stylesheet" href="assets/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/simplebar@5.3.0/dist/simplebar.css">
     <link href="style.css" rel="stylesheet">
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="assets/poule.png">
@@ -54,7 +55,7 @@
             </span>
             <div id="saveLoadBtnFull"></div>
             <br><br>
-            <div style="height: 100%; overflow-y: auto; max-height: 70vh;">
+            <div data-simplebar style="height: 100%; overflow-y: auto; max-height: 70vh;">
                 <div class="text-center h2">
                     Ma Ferme 
                 </div>
@@ -64,12 +65,12 @@
                     Améliorations 
                 </div>
                 
-                <div id="ameliorations" style="height: 100%; overflow-y: auto; max-height: 60vh;">            
+                <div id="ameliorations">            
                 </div>   
             </div>
         </div>
 
-        <nav class="col jumbotron hideWhenPhone" id="shop" style="overflow-y: auto; max-height: 100vh;">
+        <nav data-simplebar class="col jumbotron hideWhenPhone" id="shop" style="overflow-y: auto; max-height: 100vh;">
             <span type="button" class="btn float-left btn-lg back"onclick="backToGame()">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
@@ -110,6 +111,7 @@
 
     <script src="main.js"></script>
     <script src="secondary.js"></script>
+    <script src="https://unpkg.com/simplebar@5.3.0/dist/simplebar.js"></script>
 </body>
 
 </html>

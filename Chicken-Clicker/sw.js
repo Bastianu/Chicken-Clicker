@@ -40,7 +40,7 @@ this.addEventListener('fetch', (evt) => {
             fetch(evt.request).then(res => {
                 console.log("url récupérée depuis le réseau", evt.request.url);
                 // mettre dans le cache le résultat de cette réponse : en clef la requête et en valeur la réponse
-                caches.open(cacheName).then(cache => cache.put(evt.request, res));
+                //caches.open(cacheName).then(cache => cache.put(evt.request, res));
                 // quand on a la réponse on la retourne (clone car on ne peut la lire qu'une fois)
                 return res.clone();
             })
