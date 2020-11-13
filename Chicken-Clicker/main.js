@@ -307,13 +307,30 @@ function loadContent() {
 }
 
 function hideLoadingScreen() {
+    document.getElementById("game").hidden = false
     document.getElementById("loadingScreen").remove()
-    //document.getElementById("game").hidden = false
 }
 
 function displayLoadingScreen() {
-    //document.getElementById("game").hidden = true
-    document.body.innerHTML += "<div id='loadingScreen' class='text-center'>Loading...</div>"
+    document.getElementById("game").hidden = true
+    var tag = document.createElement("div");
+    tag.classList.add("card")
+    tag.style.borderColor = "#FFFFFF"
+    tag.id = "loadingScreen"
+    tag.style.position = "fixed"
+    tag.style.top = "50%"
+    tag.style.left = "50%"
+    tag.style.transform = "translate(-50%, -50%)"
+    var img = document.createElement("img")
+    img.src = "assets/running-egg.gif"
+    var cardBody = document.createElement("div")
+    cardBody.classList.add("card-body")
+    cardBody.classList.add("text-center")
+    var text = document.createTextNode("Loading...")
+    cardBody.appendChild(text)
+    tag.appendChild(img);
+    tag.appendChild(cardBody);
+    document.body.appendChild(tag)
 }
 
 function initClicker(){
