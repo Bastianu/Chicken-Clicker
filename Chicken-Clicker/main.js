@@ -36,6 +36,7 @@ if(navigator.serviceWorker) {
 
 function initGame(){
     
+    displayLoadingScreen();
    // getPlayerData();
     loadContent();
     initClicker();
@@ -295,14 +296,23 @@ function loadContent() {
                             myBuildingsBoost.push(1);
                         }
                     }
-
                     initBuildings();
                     showUpgrades();
+                    hideLoadingScreen();
                 });
         })
         .catch(console.error);
 }
 
+function hideLoadingScreen() {
+    document.getElementById("loadingScreen").remove()
+    //document.getElementById("game").hidden = false
+}
+
+function displayLoadingScreen() {
+    //document.getElementById("game").hidden = true
+    document.body.innerHTML += "<div id='loadingScreen' class='text-center'>Loading...</div>"
+}
 
 function initClicker(){
     var clicker = document.getElementById("clicker");
