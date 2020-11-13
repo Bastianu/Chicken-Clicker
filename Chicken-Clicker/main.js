@@ -56,11 +56,12 @@ function initGame(){
 function initBuildings(){
     var result = "<ul class=\"list-group\">";
     for(var i =0; i<data[1].length;i++){
-        result += "<li class=\"list-group-item\"><div>"+ data[1][i]["nom"]  +"</div> <div>( "+data[1][i]["production"]
+        result += "<li class=\"list-group-item clearfix\"><div class='float-left'><div>"+ data[1][i]["nom"]  +"</div> <div>( "+data[1][i]["production"]
         + " <img src='assets/egg.png' width=15> par secondes )</div> <div class=\"btn-group\"><button id=\"buyer_"
         + data[1][i]['id'] + "\" type=\"button\" class=\"btn btn-outline-info btn-sm\" id='"+data[1][i]['id']
         + "' onclick='buyItem("+i+","+data[1][i]["prix"]+", 1)'>"+data[1][i]["prix"]
-        + " <img src='assets/egg.png' width=15></button></div></li><br>";
+        + " <img src='assets/egg.png' width=15></button></div></div><img class='float-right' alt='' src='"
+        + data[1][i]["img"] + "'style='opacity:0.3'></li><br>";
     }
     result += "</ul>";
     buildings_Elem.innerHTML = result;
@@ -90,7 +91,7 @@ function showUpgrades(){
 function updateRewards(){
     text = "";
     for(var i=0; i<myRewards.length ; i++){
-        text += '<div style="background-color: #FBF9C3;margin-right: 50px;" class="myTooltipRight list-group-item list-group-item-secondary">'+ data[2][myRewards[i][0]][myRewards[i][1]]["title"] +'<span class="tooltiptextRight">'+data[2][myRewards[i][0]][myRewards[i][1]]["desc"]+'</span></div><br>';     
+        text += '<div style="background-color: transparent;margin-right: 50px;" class="myTooltipRight list-group-item list-group-item-secondary">'+ data[2][myRewards[i][0]][myRewards[i][1]]["title"] +'<span class="tooltiptextRight">'+data[2][myRewards[i][0]][myRewards[i][1]]["desc"]+'</span></div><br>';     
     }
     myRewards_Elem.innerHTML = text;
 }
@@ -118,7 +119,7 @@ function updateMyBuildings(){
         if(myBuildings[i]!=0){
             var production = myBuildings[i] * myBuildingsBoost[i] * data[1][i]["production"];
             var bonus = "total: "+(data[1][i]["production"]*myBuildings[i])+"<br>"+((myBuildingsBoost[i]==1)? "aucun bonus": "x "+myBuildingsBoost[i]) +"<br>= "+production;
-            text += '<div class="myTooltipRight">'+data[1][i]["nom"] + " x " + myBuildings[i] + " ( "+ (production)+"/s )" +'<span class="tooltiptextRight">'+bonus+'</span> </div><br>';
+            text += '<img class="myTooltipRight" width=10% src="' + data[1][i]["img"] + "\"> x " + myBuildings[i] + " ( "+ (production)+"/s )" +'<span class="tooltiptextRight">'+bonus+'</span> </div><br>';
         }
         
     }

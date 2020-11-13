@@ -12,8 +12,8 @@ function showShop() {
     for (let element of document.getElementsByClassName("hideWhenPhone")){
         element.hidden = true
     }
-    document.getElementById("main").style.width = "0%"
     document.getElementById("shop").hidden = false;
+    document.getElementById("main").style.width = "0%"
 }
 
 function showBoost() {
@@ -54,6 +54,7 @@ function displayButtons(){
             element.hidden = true
         }
 
+        document.getElementById("main").classList.add("col")
         document.getElementById("chickenButton").removeAttribute("width")
         displaySaveLoadBtnFull()
     }
@@ -67,6 +68,7 @@ function displayButtons(){
         for (let element of document.getElementsByClassName("back")){
             element.hidden = false
         }
+        document.getElementById("main").classList.remove("col")
 
         document.getElementById("chickenButton").setAttribute("width", "70%")
         displaySaveLoadBtnPhone()
