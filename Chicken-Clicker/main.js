@@ -121,7 +121,7 @@ function updateMyBuildings(){
         if(myBuildings[i]!=0){
             var production = myBuildings[i] * myBuildingsBoost[i] * data[1][i]["production"];
             var bonus = "total: "+(data[1][i]["production"]*myBuildings[i])+"<br>"+((myBuildingsBoost[i]==1)? "aucun bonus": "x "+myBuildingsBoost[i]) +"<br>= "+production;
-            text += '<img class="myTooltipRight" width=10% src="' + data[1][i]["img"] + "\"> x " + myBuildings[i] + " ( "+ (production)+"/s )" +'<span class="tooltiptextRight">'+bonus+'</span> </div><br>';
+            text += '<div class="myTooltipRight"><img width=20% src="' + data[1][i]["img"] + "\"> x " + myBuildings[i] + " ( "+ (production)+"/s )" +'<span class="tooltiptextRight">'+bonus+'</span> </div><br>';
         }
         
     }
@@ -420,7 +420,15 @@ function showNotification(title, desc, img){
 }
 
 function addEggs(nb_eggs){
+    var temp = eggs;
     eggs += nb_eggs;
+    /*data[2]["eggs"].forEach(palier => {
+        if(palier > temp && palier["requirement"] <= eggs){
+            showNotification(palier["title"], palier["desc"], "assets/trophy.png");
+            myRewards.push(["eggs", palier["id"]-1]);
+            updateRewards();
+        }
+    });*/
 }
 
 function addClic(){
