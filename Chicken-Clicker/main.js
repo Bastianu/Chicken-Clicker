@@ -78,9 +78,11 @@ function showUpgrades(){
     });
     data[0]["buildings"].forEach( b => {
         if(!myUpgrades.includes(b["id"])) {
+            if(myBuildings[b["building_id"]-1]!=0){
             result += "<li class=\"list-group-item\"><div>" + b["nom"]+" : "+ b["desc"]
             +"</div> <div><button class=\"btn btn-outline-info btn-sm\" id='"+b['id'] +"' onclick='buyUpgrade("+b["id"]+","+b["prix"]
             +',"building",'+b["multiplicateur"]+","+(b["building_id"]-1)+")'>"+b["prix"] + " <img src='assets/egg.png' width=15></button></div></li><br>";
+            }
         }
     });
     result += "</ul>";
@@ -144,7 +146,6 @@ function getPlayerData(){ // Il faudra passer le bon ID par paramètres
             response.json()
                 .then(result => { 
                     save = Array(result)[0];
-                    console.log("Get By id returns : ")
                     console.log(save)
                     console.log("Récupère la save sur Firebase")
 
@@ -172,6 +173,7 @@ function getPlayerData(){ // Il faudra passer le bon ID par paramètres
                     myRewards = [];
                     for(var i = 0; i<temp.length;i=i+2)  myRewards.push([temp[i], +temp[i+1]]);
                     updateRewards();
+
                 });
         })
         .catch(() => {
@@ -341,6 +343,7 @@ function buyItem(i, prix, nb){
         updateEggs();
         updateMyBuildings();
         applyMultiplier(); //increaseBuildingCost(i, nb);
+        showUpgrades();
         console.log(myBuildings); 
         console.log(myBuildingsBoost);
     }
@@ -423,7 +426,8 @@ function addClic(){
     clics += 1;
     data[2]["clic"].forEach(palier => {
         if(palier["requirement"] == clics){
-            showNotification(palier["title"], palier["desc"], palier["img"]);
+            console.log(palier);
+            showNotification(palier["title"], palier["desc"], "assets/trophy.png");
             myRewards.push(["clic", palier["id"]-1]);
             updateRewards();
         }
@@ -434,7 +438,7 @@ function addSecond(){
     secondPassed +=1;
     data[2]["temps"].forEach(palier => {
         if(palier["requirement"] == secondPassed){
-            showNotification(palier["title"], palier["desc"], palier["img"]);
+            showNotification(palier["title"], palier["desc"], "assets/trophy.png");
             myRewards.push(["temps", palier["id"]-1]);
             updateRewards();
         }
