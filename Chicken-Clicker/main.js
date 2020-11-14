@@ -508,17 +508,17 @@ function reduceInt(){
 function installApp() {
     // Show the prompt
     deferredPrompt.prompt();
-    installButton.disabled = true;
+    //installButton.disabled = true;
   
     // Wait for the user to respond to the prompt
     deferredPrompt.userChoice.then(choiceResult => {
       if (choiceResult.outcome === "accepted") {
         console.log("PWA setup accepted");
-        installButton.hidden = true;
+        //installButton.hidden = true;
       } else {
         console.log("PWA setup rejected");
       }
-      installButton.disabled = false;
+      //installButton.disabled = false;
       deferredPrompt = null;
     });
   }
@@ -534,8 +534,8 @@ window.addEventListener("beforeinstallprompt", e => {
     // Stash the event so it can be triggered later.
     deferredPrompt = e;
     // Show the install button
-    installButton.hidden = false;
-    installButton.addEventListener("click", installApp);
+    //installButton.hidden = false;
+    //installButton.addEventListener("click", installApp);
   }); 
 
 // anciennes fonctions
