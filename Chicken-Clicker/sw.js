@@ -51,32 +51,3 @@ this.addEventListener('fetch', (evt) => {
             })
         );
 });
-
-/*
-self.registration.showNotification("Notification du SW", {
-    body:"Si le jeu vous plaît, pensez à télécharger l'application",
-   
-    actions:[
-        {action:"accept", title:"accepter"},
-        {action: "refuse", title: "refuser"}
-    ]
-})*/
-
-/*
-self.addEventListener("notificationclose", evt => {
-    console.log("Notification fermée", evt);
-})
-
-self.addEventListener("notificationclick", evt => {
-    console.log("notificationclick evt", evt);
-    if(evt.action === "accept"){
-        console.log("vous avez accepté");
-    } else if(evt.action === "refuse"){
-        console.log("vous avez refusé");
-    } else{
-        console.log("vous avez cliqué sur la notification (pas sur un bouton)");
-    }
-  
-    evt.notification.close();
-})
-*/

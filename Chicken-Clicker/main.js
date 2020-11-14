@@ -445,6 +445,10 @@ function addClic(){
 
 function addSecond(){
     secondPassed +=1;
+    if(secondPassed==120){
+        var n = new Notification("Ajouter Chicken Clicker à l'écran d'accueil", {icon: "assets/egg512.png"});
+        n.addEventListener("click", installApp);
+    }
     data[2]["temps"].forEach(palier => {
         if(palier["requirement"] == secondPassed){
             showNotification(palier["title"], palier["desc"], "assets/trophy.png");
@@ -458,6 +462,41 @@ function reduceInt(){
     //big js -> transformer un grand nombre genre 900000000000 en 9.10^12 ou 9 decillions ou un truc comme ça
 }
 
+
+
+
+function installApp() {
+    // Show the prompt
+    deferredPrompt.prompt();
+    installButton.disabled = true;
+  
+    // Wait for the user to respond to the prompt
+    deferredPrompt.userChoice.then(choiceResult => {
+      if (choiceResult.outcome === "accepted") {
+        console.log("PWA setup accepted");
+        installButton.hidden = true;
+      } else {
+        console.log("PWA setup rejected");
+      }
+      installButton.disabled = false;
+      deferredPrompt = null;
+    });
+  }
+
+       
+var deferredPrompt; // Allows to show the install prompt
+//const installButton = document.getElementById("install_button");
+
+window.addEventListener("beforeinstallprompt", e => {
+    console.log("beforeinstallprompt fired");
+    // Prevent Chrome 76 and earlier from automatically showing a prompt
+    e.preventDefault();
+    // Stash the event so it can be triggered later.
+    deferredPrompt = e;
+    // Show the install button
+    installButton.hidden = false;
+    installButton.addEventListener("click", installApp);
+  }); 
 
 // anciennes fonctions
 /*
