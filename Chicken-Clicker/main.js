@@ -256,6 +256,19 @@ function saveCloudData(){
                 console.log(resp.status);
             }
         })
+        .catch(() => {
+            if ('serviceWorker' in navigator && 'SyncManager' in window) {
+              console.log('Nous sommes en hors ligne');
+              navigator.serviceWorker.ready.then(registration => {
+                return putSave(playerSave, playerSave.id).then(() => {
+                    console.log('test putSave');
+                    return registration.sync.register('sync-save')
+                });
+              })
+            } else {
+                console.log("SyncManager n'est pas supporté par le navigateur");
+              }
+          })
 }
 
 function getCloudData(){

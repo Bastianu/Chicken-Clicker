@@ -1,10 +1,14 @@
 const cacheName = 'chicken-clicker' + '0.3';
 
+self.importScripts('idb/idb.js', 'idb/database.js');
+
 self.addEventListener('install', (evt) => {
     console.log(`sw installé à ${new Date().toLocaleTimeString()}`);
 
     const cachePromise = caches.open(cacheName).then(cache => {
         return cache.addAll([
+            'idb/idb.js',
+            'idb/database.js',
             'index.html',
             'main.js',
             'content.json',
@@ -33,6 +37,7 @@ self.addEventListener('activate', (evt) => {
 });
 
 this.addEventListener('fetch', (evt) => {
+
     // 5.3 Stratégie de network first with cache fallback
         // On doit envoyer une réponse
         evt.respondWith(
@@ -50,6 +55,47 @@ this.addEventListener('fetch', (evt) => {
                 return caches.match(evt.request);
             })
         );
+});
+
+self.addEventListener('sync', (event) => {
+    console.log('sync event', event);
+    if (event.tag === 'sync-save') {
+        console.log('syncing', event.tag);
+        event.waitUntil(updateSavePromise);
+    }
+})
+
+const updateSavePromise = new Promise(function(resolve, reject) {
+
+    getAllSaves().then(saves => {
+        console.log('Les saves récupérées par la sync callback', saves);
+        
+        saves.map(save => {
+            console.log('Attempting fetch', save);
+            fetch('https://us-central1-pwa-chicken-clicker.cloudfunctions.net/addSave', {
+                    method: 'POST', 
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(save)
+                })
+                .then(resp => {
+                    if(resp.status == 200){
+                        console.log("sauvegarde réussie et synchronisée");
+                        resolve(deleteSave(save.id));
+                    }
+                    else{
+                        console.log(resp.status);
+                    }
+                })
+                .catch(err => {
+                    console.log("Erreur, la synchronisation n'a pas marché", err);
+                    reject(err);
+                })
+        })
+ 
+    })
 });
 
 /*
