@@ -36,6 +36,7 @@ if(navigator.serviceWorker) {
 
 function initGame(){
     
+    displayLoadingScreen();
    // getPlayerData();
     loadContent();
     initClicker();
@@ -255,6 +256,19 @@ function saveCloudData(){
                 console.log(resp.status);
             }
         })
+        .catch(() => {
+            if ('serviceWorker' in navigator && 'SyncManager' in window) {
+              console.log('Nous sommes en hors ligne');
+              navigator.serviceWorker.ready.then(registration => {
+                return putSave(playerSave, playerSave.id).then(() => {
+                    console.log('test putSave');
+                    return registration.sync.register('sync-save')
+                });
+              })
+            } else {
+                console.log("SyncManager n'est pas supporté par le navigateur");
+              }
+          })
 }
 
 function getCloudData(){
@@ -297,14 +311,40 @@ function loadContent() {
                             myBuildingsBoost.push(1);
                         }
                     }
-
                     initBuildings();
                     showUpgrades();
+                    hideLoadingScreen();
                 });
         })
         .catch(console.error);
 }
 
+function hideLoadingScreen() {
+    document.getElementById("game").hidden = false
+    document.getElementById("loadingScreen").remove()
+}
+
+function displayLoadingScreen() {
+    document.getElementById("game").hidden = true
+    var tag = document.createElement("div");
+    tag.classList.add("card")
+    tag.style.borderColor = "#FFFFFF"
+    tag.id = "loadingScreen"
+    tag.style.position = "fixed"
+    tag.style.top = "50%"
+    tag.style.left = "50%"
+    tag.style.transform = "translate(-50%, -50%)"
+    var img = document.createElement("img")
+    img.src = "assets/running-egg.gif"
+    var cardBody = document.createElement("div")
+    cardBody.classList.add("card-body")
+    cardBody.classList.add("text-center")
+    var text = document.createTextNode("Loading...")
+    cardBody.appendChild(text)
+    tag.appendChild(img);
+    tag.appendChild(cardBody);
+    document.body.appendChild(tag)
+}
 
 function initClicker(){
     var clicker = document.getElementById("clicker");
